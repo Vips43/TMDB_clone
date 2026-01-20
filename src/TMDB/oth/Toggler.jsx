@@ -7,7 +7,9 @@ const Toggler = memo(function Toggler({ value, items = [], onChange }) {
   return (
     <Box
       sx={{
+        
         borderRadius: "999px",
+        height:"fit-content",
         backgroundColor: "#e9e9e9",
         border: "1px solid #cfcfcf",
         p: "1px",
