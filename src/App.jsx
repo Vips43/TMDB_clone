@@ -4,11 +4,12 @@ import TMDB from "./TMDB/TMDB"
 import Layout from "./Layout";
 import MovieDetails from "./TMDB/MovieDetails";
 import TVShowDetails from "./TMDB/TVShowDetails"
-import SearchPage from "../../practice react/frontend/src/compo/TMDB/search/SearchPage";
-import FullCasts from "../../practice react/frontend/src/compo/TMDB/show/FullCasts";
-import HeroMenus from "../../practice react/frontend/src/compo/TMDB/HeroMenus";
-import PersonDetails from "../../practice react/frontend/src/compo/TMDB/person_details/PersonDetails";
-import AuthSuccess from "../../practice react/frontend/src/compo/TMDB/AuthSuccess";
+import SearchPage from "./TMDB/search/SearchPage"
+import AuthSuccess from "./TMDB/AuthSuccess"
+import FullCasts from "./TMDB/show/FullCasts"
+import HeroMenus from "./TMDB/HeroMenus"
+import PersonDetails from "./TMDB/person_details/PersonDetails"
+
 
 function App() {
  return (
