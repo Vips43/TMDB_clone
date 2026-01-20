@@ -10,9 +10,10 @@ const Toggler = memo(function Toggler({ value, items = [], onChange }) {
         
         borderRadius: "999px",
         height:"fit-content",
+        width:"fit-content",
         backgroundColor: "#e9e9e9",
         border: "1px solid #cfcfcf",
-        p: "1px",
+        px: 0.1,
       }}
     >
       <Tabs
@@ -23,6 +24,7 @@ const Toggler = memo(function Toggler({ value, items = [], onChange }) {
           sx: {
             height: "100%",
             borderRadius: "999px",
+            p:0,
             background:
               "linear-gradient(90deg, #90cea1, #3cbec9, #01b4e4)",
             zIndex: 0,
@@ -47,9 +49,8 @@ const Toggler = memo(function Toggler({ value, items = [], onChange }) {
             sx={{
               zIndex: 1,
               minHeight: "unset",
-              minWidth: "unset",
-              px: 1,
-              py: 0.4,
+              px: 0,
+              py: 0.5,
               borderRadius: "999px",
               fontSize: "0.75rem",
               fontWeight: 600,

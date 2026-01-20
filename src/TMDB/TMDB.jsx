@@ -58,10 +58,11 @@ function TMDB() {
   <Box sx={{ p: 3, maxWidth: "1400px", mx: "auto" }}>
    {/* WHAT'S POPULAR */}
    <Card movie={popular} load={loadingPopular}>
-    <Box sx={{ display: "flex", gap: 2, mb: 2 }}>
-     <Typography variant="h5" fontWeight={600}>
+    <Box sx={{ display: "flex", flexWrap: "wrap", gap: 2, mb: 2 }}>
+     <Typography variant="h5" fontWeight={600} sx={{ width: "100%" }}>
       What's Popular
      </Typography>
+
      <Toggler value={pType} onChange={setPType} items={mediaTypes} />
      <Toggler
       value={isTvToggle ? pTV : pMovie}

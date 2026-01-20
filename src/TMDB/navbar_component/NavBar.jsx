@@ -36,6 +36,7 @@ function NavBar() {
  const [mobileOpen, setMobileOpen] = React.useState(false);
 
  return (
+  <>
   <Box>
    <CssBaseline />
 
@@ -98,6 +99,7 @@ function NavBar() {
     PEOPLE_MENU={PEOPLE_MENU}
    />
   </Box>
+  </>
  );
 }
 

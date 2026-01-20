@@ -3,59 +3,65 @@ import { useNavigate } from "react-router-dom";
 import Typography from "@mui/material/Typography";
 import { Pagination, Stack } from "@mui/material";
 import Vote from "./oth/Vote";
+import { motion } from "framer-motion";
 
 function Card(props) {
- const { movie, children, totalPages,page, active = false, setPage } = props;
+ const { movie, children, totalPages, page, active = false, setPage } = props;
  const imgUrl = "https://image.tmdb.org/t/p/w185";
  const navigate = useNavigate();
 
  if (!movie || movie.length === 0) return null;
 
-
  return (
-  <Box
-   sx={{
-    mt: 2,
-   }}
-  >
+  <Box sx={{ mt: 2 }}>
    {children}
 
-   <Box
-    sx={{
+   {/* MOVIE LIST */}
+   <motion.div
+    key={movie.length}
+    initial="hidden"
+    animate="visible"
+    variants={{
+     hidden: { opacity: 0 },
+     visible: {
+      opacity: 1,
+      transition: {
+       staggerChildren: 0.1,
+      },
+     },
+    }}
+    style={{
      display: "flex",
-     justifyContent:"space-evenly",
+     justifyContent: "space-evenly",
      overflowX: "auto",
-     p: 1,
-     gap: 2,
+     padding: 8,
+     gap: 16,
      flexWrap: active ? "wrap" : "nowrap",
     }}
     className="no-scrollbar"
    >
-    {movie?.map((d) => {
+    {movie.map((d) => {
      const type = d.media_type ?? (d?.first_air_date ? "tv" : "movie");
-
      const title = type === "movie" ? d.title : d.name;
      const date = type === "movie" ? d.release_date : d.first_air_date;
 
      return (
-      <Box
-       key={d.id}
-       sx={{
+      <motion.div
+       key={`${d.id}-${type}`}
+       variants={{
+        hidden: { opacity: 0, y: 20 },
+        visible: { opacity: 1, y: 0 },
+       }}
+       transition={{ duration: 0.25, ease: "easeOut" }}
+       whileHover={{ y: -4 }}
+       style={{
         flexShrink: 1,
-        flex: active ? 1 : "",
-        boxShadow: "2px 2px 5px grey",
+        flexGrow: 0,
         cursor: "pointer",
-        borderRadius: 1,
-        transition: "transform 0.2s",
-        flexGrow:0,
-        "&:hover": {
-         opacity: 0.85,
-        },
+        borderRadius: 8,
+        boxShadow: "2px 2px 5px grey",
        }}
-       onClick={() => {
-        const type = d.media_type ?? (d.first_air_date ? "tv" : "movie");
-        navigate(`/tmdbapp/${type}/${d.id}`);
-       }}
+       onClick={() => navigate(`/tmdbapp/${type}/${d.id}`)}
       >
        {/* IMAGE */}
        <Box sx={{ position: "relative" }}>
@@ -67,8 +73,6 @@ function Card(props) {
           width: "100%",
           aspectRatio: "2 / 3",
           borderRadius: 1,
-          borderBottomRightRadius: 1,
-          borderBottomLeftRadius: 1,
          }}
         />
 
@@ -86,28 +90,27 @@ function Card(props) {
          {date}
         </Typography>
        </Box>
-      </Box>
+      </motion.div>
      );
     })}
-   </Box>
-   {active ? (
-    <Stack spacing={4} alignItems="center" sx={{ my: 4 }}>
-  <Pagination
-    color="primary"
-    count={totalPages}
-    page={page}
-    size="small"
-    shape="rounded"
-    onChange={(e, val) => {
-      e.preventDefault();
-      setPage(val);
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }}
-  />
-</Stack>
+   </motion.div>
 
-   ) : (
-    ""
+   {/* PAGINATION */}
+   {active && (
+    <Stack spacing={4} alignItems="center" sx={{ my: 4 }}>
+     <Pagination
+      color="primary"
+      count={totalPages}
+      page={page}
+      size="small"
+      shape="rounded"
+      onChange={(e, val) => {
+       e.preventDefault();
+       setPage(val);
+       window.scrollTo({ top: 0, behavior: "smooth" });
+      }}
+     />
+    </Stack>
    )}
   </Box>
  );
