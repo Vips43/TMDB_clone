@@ -1,0 +1,130 @@
+*{
+  box-sizing: border-box;
+}
+body {
+  background-color: rgb(161, 86, 86);
+  width: 100%;
+  height: 100vh;
+}
+.container {
+  background-color: white;
+  border-radius: 15px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  padding: 10px 20px;
+  transition: transform 0.2s;
+  width: 500px;
+  margin: 20px 0;
+  display: flex;
+}
+h1 {
+  font-size: x-large;
+  text-align: center;
+  color: #4206a3;
+}
+.label {
+  font-size: 15px;
+  display: block;
+  margin-top: 8px;
+  margin-bottom: 5px;
+  text-align: left;
+  color: #7c7c7c;
+  font-weight: bold;
+}
+.input{
+  display: block;width: 100%;padding: 8px;
+  box-sizing: border-box;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  background-color: #ddd;
+  color: rgb(78, 78, 78);
+}
+input[type='radio']{
+  display: inline;
+  width: 10%;
+  color: black;
+}
+select{
+  display: block;
+  width: 100%;margin-bottom: 15px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  color: white;
+}
+textarea{
+  resize: none;
+  width: 98%;
+  min-height: 100px;
+  max-height: 150px;
+}
+button{
+  padding: 10px 15px;
+  border-radius: 6px;
+  margin: 15px;
+  border: none;
+  color: white;
+  cursor: pointer;
+  background-color: #4206a3;
+  width: 100%;
+  font-size: 16px;
+}
+button:hover{
+  background-color: #2b036c;
+}
+.text-container{
+  position: relative;
+  margin: 15px 0;
+}
+.input::placeholder{
+  font-size: small;
+}
+.input{
+  height: 45px;
+  font-size: 1rem;
+  background-color: white;
+}
+.label{
+  position: absolute;
+  top: 2px;
+  background-color: white;
+  left: 10px;
+  transition: all .3s ease;
+  z-index: 0;
+}
+.input:focus ~ .label, .input:valid ~ .label{
+  background-color: white;
+  top: -20px;
+  font-size: small;
+  accent-color: white;
+}
+.input:valid ~ .label .input{
+  border-color: aquamarine;
+}
+h3{
+  text-align: left;
+  color: grey;
+  
+}
+.input[type='radio']{
+  accent-color: red;
+  background: forestgreen;
+}
+
+.div{
+  color: white;
+  font-size: xx-large;
+  font-weight: bold;
+}
+
+.tmdb {
+  background: linear-gradient(
+    90deg,
+    #90cea1 0%,
+    #3cbec9 35%,
+    #01b4e4 70%,
+    #0d253f 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
