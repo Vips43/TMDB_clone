@@ -147,7 +147,7 @@ const useApiStore = create((set, get) => ({
       set({ loadingTrending: true });
 
       const res = await fetch(
-        `https://api.themoviedb.org/3/trending/all/${time}?api_key=${TMDB_Key}`
+        `https://api.themoviedb.org/3/trending/all/${time}?api_key=${TMDB_Key}&language=en-IN`
       );
       const data = await res.json();
 
@@ -239,8 +239,9 @@ const useApiStore = create((set, get) => ({
 
   trailers: [],
   trLoading: false,
-  fetchTrailers: async (params) => {
 
+  fetchTrailers: async (params) => {
+    console.log(params)
     const newData = params.map(p => ({ id: p.id, type: p.media_type }))
     const videos = newData.map(n => (
       fetchGlobal(n.type, n.id, "videos")
@@ -251,7 +252,6 @@ const useApiStore = create((set, get) => ({
     try {
       const allvideos = await Promise.all(videos);
       const data= allvideos.map(a => a.results[0])
-      console.log(allvideos.map(a => a.results[0]))
       set({ trailers: data,trLoading:false })
     
     } catch (error) {

@@ -135,5 +135,11 @@ export const getPersonFull = async (id) => {
 
 // getPersonFull(1498158)
 
-
+export const getchTrailers = async (params) => {
+    const res = params.map(param => {
+        return param.key ==="topRated";
+ 
+    })
+    console.log(res)
+}
 

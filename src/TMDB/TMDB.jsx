@@ -4,6 +4,7 @@ import useApiStore from "./oth/js_files/store";
 import Card from "./Card";
 import Toggler from "./oth/Toggler";
 import TMDB_trailers from "./TMDB_trailers";
+import { getchTrailers } from "./oth/js_files/api";
 
 function TMDB() {
  const {
@@ -21,7 +22,7 @@ function TMDB() {
  } = useApiStore();
 
  useEffect(() => {
-    fetchTrailers(trending);
+  fetchTrailers(trending);
  }, [trending]);
 
  const [pType, setPType] = useState("movie");
@@ -31,6 +32,11 @@ function TMDB() {
  const [tType, setTType] = useState("day");
 
  const isTvToggle = pType === "tv";
+
+ const trTypes = [
+  { label: "popular", key: popular },
+  { label: "Trending", key: trending },
+ ];
 
  const mediaTypes = [
   { label: "Movies", key: "movie" },
@@ -59,20 +65,20 @@ function TMDB() {
   fetchPopular(pType, isTvToggle ? pTV : pMovie);
   fetchTopRated(rType);
   fetchTrending(tType);
- }, [pType, pTV, pMovie, rType, tType,]);
+ }, [pType, pTV, pMovie, rType, tType]);
 
  return (
   <Box sx={{ maxWidth: "1400px", mx: "auto" }}>
    {/* TRENDING */}
    <Box
     sx={{
-        p: 3,
-        backgroundImage: "url('/tranding_bg.svg')",
-        width: "100%",
-        backgroundSize: "180% ,100%",
-        height: "100%",
-        backgroundRepeat: "no-repeat",
-        backgroundPosition: "bottom",
+     p: 3,
+     backgroundImage: "url('/tranding_bg.svg')",
+     width: "100%",
+     backgroundSize: "180% ,100%",
+     height: "100%",
+     backgroundRepeat: "no-repeat",
+     backgroundPosition: "bottom",
     }}
    >
     <Card movie={trending} load={loadingTrending}>
@@ -85,11 +91,18 @@ function TMDB() {
     </Card>
    </Box>
 
-    {/* trailers  */}
-    <Box sx={{ p: 3, bgcolor:"#415b70" }}>
-     <TMDB_trailers trailers={trailers}  />
-    </Box>
-    
+   {/* trailers  */}
+   <Box sx={{ p: 3, bgcolor: "#415b70" }}>
+    <TMDB_trailers trailers={trailers}>
+     <Box sx={{ display: "flex", gap: 2 }}>
+      <Typography variant="h5" fontWeight={700} mb={2} sx={{ color: "white" }}>
+       Latest Trailers
+      </Typography>
+      {/* <Toggler value={trData} onChange={setTrData} items={trTypes}  /> */}
+     </Box>
+    </TMDB_trailers>
+   </Box>
+
    {/* WHAT'S POPULAR */}
    <Box sx={{ p: 3 }}>
     <Card movie={popular} load={loadingPopular}>

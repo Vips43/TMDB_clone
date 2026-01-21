@@ -1,11 +1,5 @@
 import * as React from "react";
-import {
- AppBar,
- Box,
- CssBaseline,
- Toolbar,
- Typography,
-} from "@mui/material";
+import { AppBar, Box, CssBaseline, Toolbar, Typography } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useNavigate } from "react-router-dom";
 import NavDrawer from "./NavDrawer";
@@ -37,17 +31,26 @@ function NavBar() {
 
  return (
   <>
-  <Box>
-   <CssBaseline />
+   <Box>
+    <CssBaseline />
 
-   <AppBar position="sticky" sx={{ bgcolor: "#032541" }}>
-    <Toolbar>
-     <MenuIcon
-      onClick={() => setMobileOpen(true)}
-      sx={{ cursor: "pointer", display: { sm: "none" }, mr: 2 }}
-     />
-
-     <Typography
+    <AppBar
+     position="sticky"
+     top="0"
+     sx={{
+      position: "sticky",
+      top: 0,
+      bgcolor: "#032541",
+      zIndex: (theme) => theme.zIndex.drawer + 1,
+     }}
+    >
+     <Toolbar sx={{ display: "flex", gap: 5 }}>
+      <MenuIcon
+       onClick={() => setMobileOpen(true)}
+       sx={{ cursor: "pointer", display: { sm: "none" }, mr: 2 }}
+      />
+      <Box component="img" src="/TMDB_logo1.svg" sx={{ height: "15px" }} />
+      {/* <Typography
       variant="h6"
       onClick={() => navigate("/")}
       sx={{
@@ -60,45 +63,45 @@ function NavBar() {
       }}
      >
       TMDB
-     </Typography>
+     </Typography> */}
 
-     <Box
-      sx={{
-       display: { xs: "none", sm: "flex" },
-       alignItems: "center",
-       gap: 1,
-       flexGrow: 1,
-      }}
-     >
-      <NavDropdown
-       label="Movies"
-       items={MOVIE_MENU}
-       onSelect={(key) => navigate(`/tmdbapp/nav/movie/${key}`)}
-      />
-      <NavDropdown
-       label="TV Shows"
-       items={TV_MENU}
-       onSelect={(key) => navigate(`/tmdbapp/nav/tv/${key}`)}
-      />
-      <NavDropdown
-       label="People"
-       items={PEOPLE_MENU}
-       onSelect={(key) => navigate(`/tmdbapp/nav/person/${key}`)}
-      />
-     </Box>
+      <Box
+       sx={{
+        display: { xs: "none", sm: "flex" },
+        alignItems: "center",
+        gap: 1,
+        flexGrow: 1,
+       }}
+      >
+       <NavDropdown
+        label="Movies"
+        items={MOVIE_MENU}
+        onSelect={(key) => navigate(`/tmdbapp/nav/movie/${key}`)}
+       />
+       <NavDropdown
+        label="TV Shows"
+        items={TV_MENU}
+        onSelect={(key) => navigate(`/tmdbapp/nav/tv/${key}`)}
+       />
+       <NavDropdown
+        label="People"
+        items={PEOPLE_MENU}
+        onSelect={(key) => navigate(`/tmdbapp/nav/person/${key}`)}
+       />
+      </Box>
 
-     <Searchbtn />
-    </Toolbar>
-   </AppBar>
+      <Searchbtn />
+     </Toolbar>
+    </AppBar>
 
-   <NavDrawer
-    mobileOpen={mobileOpen}
-    setMobileOpen={setMobileOpen}
-    MOVIE_MENU={MOVIE_MENU}
-    TV_MENU={TV_MENU}
-    PEOPLE_MENU={PEOPLE_MENU}
-   />
-  </Box>
+    <NavDrawer
+     mobileOpen={mobileOpen}
+     setMobileOpen={setMobileOpen}
+     MOVIE_MENU={MOVIE_MENU}
+     TV_MENU={TV_MENU}
+     PEOPLE_MENU={PEOPLE_MENU}
+    />
+   </Box>
   </>
  );
 }

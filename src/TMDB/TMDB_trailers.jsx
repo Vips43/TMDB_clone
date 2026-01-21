@@ -1,19 +1,13 @@
 import { Box, Typography, Card, CardContent } from "@mui/material";
 import React from "react";
 
-function TMDB_trailers({ trailers }) {
+function TMDB_trailers({ trailers, children }) {
  if (!trailers || trailers.length === 0) return null;
 
  return (
   <Box sx={{ my: 4, }}>
-   <Typography
-    variant="h5"
-    fontWeight={700}
-    mb={2}
-    sx={{ color: "white" }}
-   >
-    Latest Trailers
-   </Typography>
+    
+   {children}
 
    <Box
     className="no-scrollbar"
