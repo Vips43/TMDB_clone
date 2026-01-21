@@ -8,7 +8,7 @@ import Similar from "../oth/Similar";
 
 function LeftCompo({ cast, type, imgUrl }) {
  const { id } = useParams();
-
+ 
  return (
   <>
    

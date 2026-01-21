@@ -49,6 +49,7 @@ export const fetchReviews = async (id, type) => {
 
 export const fetchCast = async (id, type, s = "credits") => {
     if (!id || !type || !s) return;
+    console.log(id, type, s)
     const res = await fetch(`https://api.themoviedb.org/3/${type}/${id}/${s}?api_key=${TMDB_Key}`);
     const data = await res.json();
 

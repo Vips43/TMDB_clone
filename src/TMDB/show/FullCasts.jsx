@@ -23,6 +23,7 @@ function FullCasts() {
   };
   getData();
  }, [id, type]);
+
  console.log(casts)
 
  if (isLoading) {
@@ -47,8 +48,8 @@ function FullCasts() {
       gap: 2,
      }}
     >
-     <CastStrips data={casts.data.cast} title={`Series Cast `} type="cast" />
-     <CastStrips data={casts.data.crew} title={`Series Crew `} type="crew" />
+     <CastStrips data={casts?.data?.cast} title={`Series Cast `} type="cast" />
+     <CastStrips data={casts?.data?.crew} title={`Series Crew `} type="crew" />
     </Box>
    </Box>
   </>
