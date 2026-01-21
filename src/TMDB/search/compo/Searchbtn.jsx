@@ -9,10 +9,10 @@ const Search = styled("div")(({ theme }) => ({
  display: "flex",
  alignItems: "center",
  width: "100%",
- maxWidth: 420,
- borderRadius: 999,
- backgroundColor: alpha("#ffffff", 0.15),
- border: "1px solid rgba(255,255,255,0.3)",
+ maxWidth: "100%",
+ borderRadius: 5,
+ backgroundColor: "lightgrey",
+ border: "1px solid grey",
  transition: "all 0.25s ease",
 
  "&:focus-within": {
@@ -23,7 +23,7 @@ const Search = styled("div")(({ theme }) => ({
 }));
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
- color: "#fff",
+ color: "#000",
  width: "100%",
  "& .MuiInputBase-input": {
   padding: theme.spacing(1, 2),
@@ -31,7 +31,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   transition: "all 0.2s ease",
 
   "&::placeholder": {
-   color: "rgba(255,255,255,0.6)",
+   color: "#000",
    opacity: 1,
   },
  },

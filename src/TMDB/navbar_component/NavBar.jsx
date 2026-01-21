@@ -50,21 +50,7 @@ function NavBar() {
        sx={{ cursor: "pointer", display: { sm: "none" }, mr: 2 }}
       />
       <Box component="img" src="/TMDB_logo1.svg" sx={{ height: "15px" }} />
-      {/* <Typography
-      variant="h6"
-      onClick={() => navigate("/")}
-      sx={{
-       fontWeight: 800,
-       cursor: "pointer",
-       background: "linear-gradient(to right, #90cea1, #01b4e4)",
-       WebkitBackgroundClip: "text",
-       WebkitTextFillColor: "transparent",
-       mr: 3,
-      }}
-     >
-      TMDB
-     </Typography> */}
-
+      
       <Box
        sx={{
         display: { xs: "none", sm: "flex" },
@@ -90,7 +76,7 @@ function NavBar() {
        />
       </Box>
 
-      <Searchbtn />
+      
      </Toolbar>
     </AppBar>
 
@@ -102,6 +88,7 @@ function NavBar() {
      PEOPLE_MENU={PEOPLE_MENU}
     />
    </Box>
+   <Searchbtn />
   </>
  );
 }
