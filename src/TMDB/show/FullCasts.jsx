@@ -3,6 +3,7 @@ import Box from "@mui/material/Box";
 import { useParams } from "react-router";
 import { useEffect, useState } from "react";
 import { fetchCast } from "../oth/js_files/api";
+import CastStrips from "../oth/CastStrips";
 
 function FullCasts() {
  const { id, type } = useParams();
@@ -22,6 +23,7 @@ function FullCasts() {
   };
   getData();
  }, [id, type]);
+ console.log(casts)
 
  if (isLoading) {
   return (
@@ -36,7 +38,7 @@ function FullCasts() {
  return (
   <>
    <Box sx={{ background: "white" }}>
-    <Typography>Series Cast length</Typography>
+    {/* <Typography>Series Cast length</Typography> */}
     <Box
      sx={{
       p: 4,
@@ -45,8 +47,8 @@ function FullCasts() {
       gap: 2,
      }}
     >
-     <CastStrips data={casts.cast} title={`Series Cast `} type="cast" />
-     <CastStrips data={casts.crew} title={`Series Crew `} type="crew" />
+     <CastStrips data={casts.data.cast} title={`Series Cast `} type="cast" />
+     <CastStrips data={casts.data.crew} title={`Series Crew `} type="crew" />
     </Box>
    </Box>
   </>

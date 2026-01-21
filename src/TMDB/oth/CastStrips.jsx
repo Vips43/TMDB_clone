@@ -4,7 +4,7 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import img from "/No-image.png";
-import useApiStore from "./store";
+import useApiStore from "./js_files/store";
 
 function CastStrips({ data = [], title }) {
  const imgUrl = "https://image.tmdb.org/t/p/w500";
