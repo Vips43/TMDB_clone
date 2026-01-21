@@ -5,12 +5,19 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import img from "/No-image.png";
 import useApiStore from "./js_files/store";
+import { useNavigate } from "react-router-dom";
 
 function CastStrips({ data = [], title }) {
+ const navigate = useNavigate();
  const imgUrl = "https://image.tmdb.org/t/p/w500";
  const isLoading = useApiStore((state) => state.isLoading);
- 
- if(isLoading) return <div className="text-2xl font-bold grid place-items-center animate-bounce">Loading...</div>
+    console.log(data)
+ if (isLoading)
+  return (
+   <div className="text-2xl font-bold grid place-items-center animate-bounce">
+    Loading...
+   </div>
+  );
 
  return (
   <Box className="space-y-2">
@@ -33,11 +40,20 @@ function CastStrips({ data = [], title }) {
       />
 
       <CardContent sx={{ pt: 1 }}>
-       <Typography fontWeight={600}>{f.name}</Typography>
-       <Typography sx={{opacity:0.7, fontSize:".9rem"}}>{f.character || f.job || ''}</Typography>
+       <Typography
+        fontWeight={600}
+        sx={{ "&:hover": { textDecoration: "underline", cursor: "pointer" } }}
+        onClick={()=>navigate(`/tmdbapp/person/${f.id}/${f.name}`)}
+       >
+        {f.name}
+       </Typography>
+       <Typography sx={{ opacity: 0.7, fontSize: ".9rem" }}>
+        {f.character || f.job || ""}
+       </Typography>
 
        {isCast ? (
-        <Typography fontSize="0.8rem">
+        <Typography fontSize="0.8rem" sx={{ "&:hover": { textDecoration: "underline", cursor: "pointer" } }}
+        onClick={()=>navigate(`/tmdbapp/person/${f.id}/${f.name}`)}>
          {f?.roles?.map((r, i) => (
           <span key={i}>
            <strong>{r.character}</strong>{" "}
