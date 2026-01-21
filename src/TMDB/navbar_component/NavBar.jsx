@@ -27,7 +27,6 @@ const PEOPLE_MENU = [{ label: "Popular People", key: "popular" }];
 
 function NavBar() {
  const navigate = useNavigate();
- const [mobileOpen, setMobileOpen] = React.useState(false);
 
  return (
   <>
@@ -44,19 +43,15 @@ function NavBar() {
       zIndex: (theme) => theme.zIndex.drawer + 1,
      }}
     >
-     <Toolbar sx={{ display: "flex", gap: 5 }}>
-      <MenuIcon
-       onClick={() => setMobileOpen(true)}
-       sx={{ cursor: "pointer", display: { sm: "none" }, mr: 2 }}
-      />
-      <Box component="img" src="/TMDB_logo1.svg" sx={{ height: "15px" }} />
+     <Toolbar sx={{ display: "grid", gridTemplateColumns:"1fr 1fr", gap: 5 }}>
+      
+      <Box component="img" src="/TMDB_logo1.svg" sx={{ height: "15px", max:"auto", boxSizing:"content-box",  }} />
       
       <Box
        sx={{
-        display: { xs: "none", sm: "flex" },
+        display: {  xs: "flex" },
         alignItems: "center",
         gap: 1,
-        flexGrow: 1,
        }}
       >
        <NavDropdown
@@ -80,13 +75,7 @@ function NavBar() {
      </Toolbar>
     </AppBar>
 
-    <NavDrawer
-     mobileOpen={mobileOpen}
-     setMobileOpen={setMobileOpen}
-     MOVIE_MENU={MOVIE_MENU}
-     TV_MENU={TV_MENU}
-     PEOPLE_MENU={PEOPLE_MENU}
-    />
+    
    </Box>
    <Searchbtn />
   </>

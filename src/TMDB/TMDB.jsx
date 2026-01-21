@@ -4,7 +4,6 @@ import useApiStore from "./oth/js_files/store";
 import Card from "./Card";
 import Toggler from "./oth/Toggler";
 import TMDB_trailers from "./TMDB_trailers";
-import { getchTrailers } from "./oth/js_files/api";
 
 function TMDB() {
  const {
@@ -92,16 +91,18 @@ function TMDB() {
    </Box>
 
    {/* trailers  */}
-   <Box sx={{ p: 3, bgcolor: "#415b70" }}>
-    <TMDB_trailers trailers={trailers}>
-     <Box sx={{ display: "flex", gap: 2 }}>
-      <Typography variant="h5" fontWeight={700} mb={2} sx={{ color: "white" }}>
-       Latest Trailers
-      </Typography>
-      {/* <Toggler value={trData} onChange={setTrData} items={trTypes}  /> */}
-     </Box>
-    </TMDB_trailers>
-   </Box>
+   {trailers && (
+    <Box sx={{ p: 3, bgcolor: "#415b70" }}>
+     <TMDB_trailers trailers={trailers}>
+      <Box sx={{ display: "flex", gap: 2 }}>
+       <Typography variant="h5" fontWeight={700} mb={2} sx={{ color: "white" }}>
+        Latest Trailers
+       </Typography>
+       {/* <Toggler value={trData} onChange={setTrData} items={trTypes}  /> */}
+      </Box>
+     </TMDB_trailers>
+    </Box>
+   )}
 
    {/* WHAT'S POPULAR */}
    <Box sx={{ p: 3 }}>

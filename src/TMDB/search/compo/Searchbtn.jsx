@@ -9,22 +9,24 @@ const Search = styled("div")(({ theme }) => ({
  display: "flex",
  alignItems: "center",
  width: "100%",
+ textAlign: "center",
  maxWidth: "100%",
  borderRadius: 5,
- backgroundColor: "lightgrey",
- border: "1px solid grey",
+ backgroundColor: "white",
  transition: "all 0.25s ease",
 
  "&:focus-within": {
   backgroundColor: alpha("#ffffff", 0.25),
   borderColor: "#01b4e4",
  },
-
 }));
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
+ border: "1px solid grey",
  color: "#000",
- width: "100%",
+ width: "95%",
+ borderRadius:5,
+ margin:"0 auto",
  "& .MuiInputBase-input": {
   padding: theme.spacing(1, 2),
   fontSize: "0.9rem",
