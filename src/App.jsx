@@ -12,6 +12,7 @@ import HeroMenus from "./TMDB/HeroMenus";
 import PersonDetails from "./TMDB/person_details/PersonDetails";
 
 function App() {
+  document.title= `The Movie Database`
   return (
     <Routes>
       {/* LAYOUT WRAPPER */}

@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { videos } from "../oth/js_files/api";
 import { useParams } from "react-router";
 
-function Videos({ type }) {
+function Videos({ type, }) {
  const { id } = useParams();
  const [data, setData] = useState(null);
 

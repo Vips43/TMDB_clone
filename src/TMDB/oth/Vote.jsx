@@ -21,7 +21,7 @@ function Vote({ vote, w = "w-10", h = "h-10", showDetails = false }) {
      className="w-full h-full rounded-full flex items-center justify-center"
      sx={{
       backgroundColor: "#081C22",
-      background: `radial-gradient(closest-side, #081C22 79%, transparent 80% 100%),
+      background: `radial-gradient(closest-side, #081C22 85%, transparent 100% 100%),
               conic-gradient(${color} ${vote}%, ${track} 0)`,
      }}
     >

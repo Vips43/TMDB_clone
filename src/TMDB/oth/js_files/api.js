@@ -47,7 +47,7 @@ export const fetchReviews = async (id, type) => {
 }
 // reviews(66732)
 
-export const fetchCast = async (id, type, s="credits") => {
+export const fetchCast = async (id, type, s = "credits") => {
     if (!id || !type || !s) return;
     const res = await fetch(`https://api.themoviedb.org/3/${type}/${id}/${s}?api_key=${TMDB_Key}`);
     const data = await res.json();
@@ -57,7 +57,7 @@ export const fetchCast = async (id, type, s="credits") => {
     const dir = crew.filter((c) => c.job === "Director")
 
     const topCrew = [...new Map(
-        crew.map(({ name, job,id }) => [name, { name, job,id }])
+        crew.map(({ name, job, id }) => [name, { name, job, id }])
     ).values()].slice(0, 3);
 
     // console.log(dir)
@@ -125,7 +125,7 @@ export const getPersonFull = async (id) => {
         `https://api.themoviedb.org/3/person/${id}?api_key=${TMDB_Key}&append_to_response=combined_credits`
     );
     const data = await res.json()
-    
+
 
     cache[key] = data
     // console.log("perfull details", data, cache)
@@ -134,5 +134,6 @@ export const getPersonFull = async (id) => {
 };
 
 // getPersonFull(1498158)
+
 
 

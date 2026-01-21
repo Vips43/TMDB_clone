@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import {fetchGlobal} from "./api.js"
 
 const TMDB_Key = import.meta.env.VITE_TMDB_KEY;
 const TMDB_BEARER = import.meta.env.VITE_TMDB_BEARER;
@@ -13,7 +14,7 @@ const useApiStore = create((set, get) => ({
   tvDetail: [],
   casts: [],
   searchResults: [],
-  globalData:[],
+  globalData: [],
 
   loadingPopular: false,
   loadingTopRated: false,
@@ -184,7 +185,7 @@ const useApiStore = create((set, get) => ({
         type === "tv"
           ? `https://api.themoviedb.org/3/tv/${id}?api_key=${TMDB_Key}`
           : `https://api.themoviedb.org/3/movie/${id}?api_key=${TMDB_Key}&language=en-US`;
-      console.log(type , endpoint)
+      console.log(type, endpoint)
       const res = await fetch(endpoint);
       const data = await res.json();
       // console.log(data)
@@ -228,11 +229,34 @@ const useApiStore = create((set, get) => ({
       set({ isLoading: false, err: error });
     }
   },
-  fetchGlobalAPI: async (type, key, page=1) => {
-    set({isLoading:true})
+  fetchGlobalAPI: async (type, key, page = 1) => {
+    set({ isLoading: true })
     const res = await fetch(`https://api.themoviedb.org/3/${type}/${key}?api_key=${TMDB_Key}&page=${page}`);
-    const data=await res.json();
-      set({globalData:data, isLoading:false})
+    const data = await res.json();
+    set({ globalData: data, isLoading: false })
+  },
+
+
+  trailers: [],
+  trLoading: false,
+  fetchTrailers: async (params) => {
+
+    const newData = params.map(p => ({ id: p.id, type: p.media_type }))
+    const videos = newData.map(n => (
+      fetchGlobal(n.type, n.id, "videos")
+    ))
+
+    set({trLoading:true})
+    
+    try {
+      const allvideos = await Promise.all(videos);
+      const data= allvideos.map(a => a.results[0])
+      console.log(allvideos.map(a => a.results[0]))
+      set({ trailers: data,trLoading:false })
+    
+    } catch (error) {
+      console.error("there is an error at trandingTrailers: ", error)
+    }
   }
 }));
 
