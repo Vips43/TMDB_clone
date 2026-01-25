@@ -3,6 +3,7 @@ import TwitterIcon from "@mui/icons-material/Twitter";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import useApiStore from "../oth/js_files/store";
+import img from "/casts.png";
 
 function LeftPer({ info }) {
  const imgUrl = `https://image.tmdb.org/t/p/original`;
@@ -12,20 +13,21 @@ function LeftPer({ info }) {
 
  return (
   <>
-   <Box sx={{}}>
+   <Box>
     <Box
      sx={{
       width: "100%",
       bgcolor: "white",
       p: { xs: 0, sm: 0 },
-      mb: 10,
-      position: { xs: "sticky", xm: "static" },
+      mb: { xs: 10, sm: 2 },
       top: 0,
      }}
     >
      <Box
       component="img"
-      src={`${imgUrl}${globalData?.profile_path}`}
+      src={
+       globalData?.profile_path ? `${imgUrl}${globalData?.profile_path}` : img
+      }
       sx={{ width: { xs: "45%", sm: "100%" }, mx: "auto", borderRadius: 3 }}
      />
      <Box sx={{ display: { xs: "grid", sm: "none" }, placeItems: "center" }}>
@@ -43,50 +45,56 @@ function LeftPer({ info }) {
       </Box>
      </Box>
     </Box>
-    <Box sx={{ fontSize: "1rem", display: "grid", gap: 2, overflow: "auto" }}>
+    <Box
+     sx={{ fontSize: "1rem", display: "grid", gap: 2, px: 2, overflow: "auto" }}
+    >
      <Typography fontWeight={600} fontSize="1.5rem">
       Personal Info
      </Typography>
      <Typography>
       <strong>Known For</strong>
       <br />
-      {globalData?.known_for_department}
+      {globalData?.known_for_department || "N/A"}
      </Typography>
      <Typography>
       <strong>Known Credits</strong>
       <br />
-      {info.combined_credits?.cast?.length}
+      {info.combined_credits?.cast?.length || "N/A"}
      </Typography>
      <Typography>
       <strong>Gender</strong>
       <br />
-      {gender}
+      {gender || "N/A"}
      </Typography>
      <Typography>
       <strong>Birthdate</strong>
       <br />
-      {globalData?.birthday}
+      {globalData?.birthday || "N/A"}
      </Typography>
      {globalData?.deathday && (
       <Typography>
        <strong>Day of Death</strong>
        <br />
-       {globalData?.deathday}
+       {globalData?.deathday || "N/A"}
       </Typography>
      )}
      <Typography>
       <strong>Place of Birth</strong>
       <br />
-      {globalData?.place_of_birth}
+      {globalData?.place_of_birth || "N/A"}
      </Typography>
      <Typography>
-      <strong>Also known As</strong>
-      <br />
-      {globalData?.also_known_as?.map((name) => (
-       <span>
-        {name}, <br />
-       </span>
-      ))}
+      {globalData?.also_known_as && (
+       <>
+        <strong>Also known As</strong>
+        <br />
+        {globalData?.also_known_as?.map((name) => (
+         <span>
+          {name}, <br />
+         </span>
+        ))}
+       </>
+      )}
      </Typography>
     </Box>
    </Box>

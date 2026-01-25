@@ -7,6 +7,7 @@ import { fetchGlobal } from "./oth/js_files/api";
 import Vote from "./oth/Vote";
 import ActionButtons from "./oth/ActionButtons";
 import ShowExtraDetails  from "./show/ShowExtraDetails";
+import Loader from "../../Loader";
 
 function TVShowDetails() {
  const imgUrl = "https://image.tmdb.org/t/p/w500";
@@ -47,21 +48,10 @@ function TVShowDetails() {
  /* 🔑 PREVENT CRASH ON REFRESH */
  if (!movieDetail || !movieDetail.id) {
   return (
-   <Typography
-    sx={{
-     mt: 10,
-     textAlign: "center",
-     fontWeight: "700",
-    }}
-    className="animate-pulse"
-   >
-    Loading TV show details...
-   </Typography>
+   <Loader text={"show loading"} />
   );
  }
 
- // --- HELPER: CREATOR INFO COMPONENT ---
- // We define this once and use it in both Desktop (Hero) and Mobile (Body) sections
  const CreatorInfo = () => {
   if (!movieDetail.created_by || movieDetail.created_by.length === 0)
    return null;

@@ -43,7 +43,7 @@ function App() {
      <Route path="tmdbapp/tv/:id" element={<TVShowDetails />} />
      <Route path="tmdbapp/:type/:id/cast" element={<FullCasts />} />
      <Route path="tmdbapp/nav/:type/:keyVal" element={<HeroMenus />} />
-     <Route path="tmdbapp/:type/:id/:keyVal" element={<PersonDetails />} />
+     <Route path="/:type/:id/:keyVal" element={<PersonDetails />} />
     </Route>
    </Routes>
   </Suspense>

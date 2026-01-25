@@ -14,7 +14,6 @@ function RightOth({ info }) {
    info?.combined_credits?.cast?.filter((c) => c.media_type !== "movie") || [],
   [info],
  );
- console.log(tv)
 
 
  const [type, setType] = useState("movie");

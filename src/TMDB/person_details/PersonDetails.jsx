@@ -1,10 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { lazy, Suspense, useEffect, useState } from "react";
 import useApiStore from "../oth/js_files/store";
 import { useParams } from "react-router";
-import { Box, Container, Grid, Stack } from "@mui/material";
-import LeftPer from "./LeftPer";
-import RightPer from "./RightPer";
+import { Box, Container } from "@mui/material";
+// import LeftPer from "./LeftPer";
+// import RightPer from "./RightPer";
 import { getPersonFull } from "../oth/js_files/api";
+
+const LeftPer = lazy(() => import("./LeftPer"));
+const RightPer = lazy(() => import("./RightPer"));
 
 function PersonDetails() {
  const fetchGlobalAPI = useApiStore((s) => s.fetchGlobalAPI);
@@ -65,10 +68,14 @@ function PersonDetails() {
         alignSelf: "start",
        }}
       >
-       <LeftPer info={info} />
+       <Suspense>
+        <LeftPer info={info} />
+       </Suspense>
       </Box>
       <Box>
-       <RightPer infos={info} />
+       <Suspense>
+        <RightPer infos={info} />
+       </Suspense>
       </Box>
      </Box>
     </Container>

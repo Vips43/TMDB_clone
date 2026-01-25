@@ -9,8 +9,8 @@ import img from "/casts.png";
 import useApiStore from "../oth/js_files/store";
 
 function Cast({ cast, url, cardWidth = 120 }) {
-
-  const navigate = useNavigate();
+ console.log(img);
+ const navigate = useNavigate();
 
  const isLoading = useApiStore((state) => state.isLoading);
  const slicedCast = cast?.cast?.slice(0, 10);
@@ -23,63 +23,66 @@ function Cast({ cast, url, cardWidth = 120 }) {
  }
 
  return (
-  <Box sx={{ display: "flex", gap: 1, overflow: "auto", py: 0.2, background:"white" }}
-   className={"no-scrollbar"} >
+  <Box
+   sx={{
+    display: "flex",
+    gap: 1,
+    overflow: "auto",
+    py: 0.2,
+    background: "white",
+   }}
+   className={"no-scrollbar"}
+  >
    {slicedCast?.map((c, i) => (
     <Card
      key={i}
      sx={{
       width: cardWidth,
       flexShrink: 0,
-      transition:"all .8s easeInOut",
+      transition: "all .8s easeInOut",
      }}
     >
      <CardActionArea
       disableRipple
-      sx={{ cursor: "default", "&:hover": { backgroundColor: "transparent" },
-      }}
+      sx={{ cursor: "default", "&:hover": { backgroundColor: "transparent" } }}
      >
       <CardMedia
        component="img"
        height="140"
-       image={c.profile_path ? `${url}${c.profile_path}` : img}
+       image={c?.profile_path ? `${url}${c.profile_path}` : img}
+       //  image={`${url}${c.profile_path}` || img}
        alt={c.name || c.character}
+       sx={{ border: c.profile_path ? "" : "1px solid lightgrey" }}
       />
 
-      <CardContent sx={{ p: 0.5, 
-      "&:hover":{textDecoration:"underline", opacity:0.8, cursor:"pointer"} }} 
-      onClick={()=> navigate(`/tmdbapp/person/${c.id}/${c.name}`)} 
-      >
+      <CardContent sx={{ p: 0.5 }}>
        <Typography
         variant="subtitle2"
         sx={{
          fontWeight: 600,
          lineHeight: 1,
+         "&:hover": {
+          textDecoration: "underline",
+          opacity: 0.8,
+          cursor: "pointer",
+         },
         }}
+        onClick={() => navigate(`/person/${c.id}/${c.name}`)}
        >
         {c.name}
        </Typography>
 
-       <Typography
-        variant="caption"
-        sx={{
-         lineHeight: 1.1,
-         display: "block",
-         opacity: 0.85,
-         overflow: 'hidden',
-        }}
-        className="line-clamp-2"
-       >
+       <p className="text-xs leading-3.5 mt-0.5 opacity-50 line-clamp-2">
         {c.roles?.map((r) => r?.character).join(", ")}
-       </Typography>
+       </p>
 
        <Typography
         variant="caption"
         sx={{
          display: "block",
-         mt:1,
+         mt: 1,
          color: "text.secondary",
-         lineHeight:1
+         lineHeight: 1,
         }}
        >
         {c.known_for_department}

@@ -43,7 +43,7 @@ function CastStrips({ data = [], title }) {
        <Typography
         fontWeight={600}
         sx={{ "&:hover": { textDecoration: "underline", cursor: "pointer" } }}
-        onClick={()=>navigate(`/tmdbapp/person/${f.id}/${f.name}`)}
+        onClick={()=>navigate(`/person/${f.id}/${f.name}`)}
        >
         {f.name}
        </Typography>
@@ -53,7 +53,7 @@ function CastStrips({ data = [], title }) {
 
        {isCast ? (
         <Typography fontSize="0.8rem" sx={{ "&:hover": { textDecoration: "underline", cursor: "pointer" } }}
-        onClick={()=>navigate(`/tmdbapp/person/${f.id}/${f.name}`)}>
+        onClick={()=>navigate(`/person/${f.id}/${f.name}`)}>
          {f?.roles?.map((r, i) => (
           <span key={i}>
            <strong>{r.character}</strong>{" "}

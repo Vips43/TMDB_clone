@@ -8,6 +8,7 @@ import Vote from "./oth/Vote";
 import { duration } from "./oth/js_files/api";
 import MovieFullDetail from "./movie/MovieFullDetail";
 import ActionButtons from "./oth/ActionButtons";
+import Loader from "../../Loader";
 
 function MovieDetails() {
  const navigate = useNavigate();
@@ -41,9 +42,7 @@ function MovieDetails() {
 
  if (isLoading)
   return (
-   <div className="animation_loader">
-    Loading...
-   </div>
+   <Loader text={"movie details"}/>
   );
 
  // Helper component for Crew/Director to avoid code duplication
