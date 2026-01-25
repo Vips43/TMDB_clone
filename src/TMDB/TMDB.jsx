@@ -1,28 +1,28 @@
-import { useEffect, useState } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
+import { shallow } from "zustand/shallow";
 import { Box, Typography } from "@mui/material";
 import useApiStore from "./oth/js_files/store";
-import Card from "./Card";
 import Toggler from "./oth/Toggler";
-import TMDB_trailers from "./TMDB_trailers";
+import Loader from "../../Loader";
+const Card = lazy(() => import("./Card"));
+const TMDB_trailers = lazy(() => import("./TMDB_trailers"));
 
 function TMDB() {
- const {
-  popular,
-  topRated,
-  trending,
-  fetchPopular,
-  fetchTopRated,
-  fetchTrending,
-  trailers,
-  fetchTrailers,
-  loadingPopular,
-  loadingTopRated,
-  loadingTrending,
- } = useApiStore();
+const popular = useApiStore((s) => s.popular);
+const topRated = useApiStore((s) => s.topRated);
+const trending = useApiStore((s) => s.trending);
+const trailers = useApiStore((s) => s.trailers);
 
- useEffect(() => {
-  fetchTrailers(trending);
- }, [trending]);
+const loadingPopular = useApiStore((s) => s.loadingPopular);
+const loadingTopRated = useApiStore((s) => s.loadingTopRated);
+const loadingTrending = useApiStore((s) => s.loadingTrending);
+
+const fetchPopular = useApiStore((s) => s.fetchPopular);
+const fetchTopRated = useApiStore((s) => s.fetchTopRated);
+const fetchTrending = useApiStore((s) => s.fetchTrending);
+const fetchTrailers = useApiStore((s) => s.fetchTrailers);
+
+
 
  const [pType, setPType] = useState("movie");
  const [pTV, setPV] = useState("airing_today");
@@ -31,11 +31,6 @@ function TMDB() {
  const [tType, setTType] = useState("day");
 
  const isTvToggle = pType === "tv";
-
- const trTypes = [
-  { label: "popular", key: popular },
-  { label: "Trending", key: trending },
- ];
 
  const mediaTypes = [
   { label: "Movies", key: "movie" },
@@ -58,16 +53,30 @@ function TMDB() {
   { label: "Popular", key: "popular" },
   { label: "Top Rated", key: "top_rated" },
   { label: "Upcoming", key: "upcoming" },
- ];
-
- useEffect(() => {
+];
+// Popular
+useEffect(() => {
   fetchPopular(pType, isTvToggle ? pTV : pMovie);
+}, [pType, pTV, pMovie,isTvToggle]);
+
+// Top Rated
+useEffect(() => {
   fetchTopRated(rType);
+}, [rType]);
+
+// Trending
+useEffect(() => {
   fetchTrending(tType);
- }, [pType, pTV, pMovie, rType, tType]);
+}, [tType]);
+
+// Trailers (NO ARRAY DEPENDENCY)
+useEffect(() => {
+  fetchTrailers();
+}, [tType]);
+
 
  return (
-  <Box sx={{ maxWidth: "1400px", mx: "auto" }}>
+     <Box sx={{ maxWidth: "1400px", mx: "auto" }}>
    {/* TRENDING */}
    <Box
     sx={{
@@ -80,58 +89,70 @@ function TMDB() {
      backgroundPosition: "bottom",
     }}
    >
-    <Card movie={trending} load={loadingTrending}>
-     <Box sx={{ display: "flex", gap: 2, mb: 2 }}>
-      <Typography variant="h5" fontWeight={600}>
-       Trending
-      </Typography>
-      <Toggler value={tType} onChange={setTType} items={timeWindows} />
-     </Box>
-    </Card>
+    <Suspense fallback={<Loader />}>
+     <Card movie={trending} load={loadingTrending}>
+      <Box sx={{ display: "flex", gap: 2, mb: 2 }}>
+       <Typography variant="h5" fontWeight={600}>
+        Trending
+       </Typography>
+       <Toggler value={tType} onChange={setTType} items={timeWindows} />
+      </Box>
+     </Card>
+    </Suspense>
    </Box>
 
    {/* trailers  */}
    {trailers && (
     <Box sx={{ p: 3, bgcolor: "#415b70" }}>
-     <TMDB_trailers trailers={trailers}>
-      <Box sx={{ display: "flex", gap: 2 }}>
-       <Typography variant="h5" fontWeight={700} mb={2} sx={{ color: "white" }}>
-        Latest Trailers
-       </Typography>
-       {/* <Toggler value={trData} onChange={setTrData} items={trTypes}  /> */}
-      </Box>
-     </TMDB_trailers>
+     <Suspense fallback={<Loader />}>
+      <TMDB_trailers trailers={trailers}>
+       <Box sx={{ display: "flex", gap: 2 }}>
+        <Typography
+         variant="h5"
+         fontWeight={700}
+         mb={2}
+         sx={{ color: "white" }}
+        >
+         Latest Trailers
+        </Typography>
+       </Box>
+      </TMDB_trailers>
+     </Suspense>
     </Box>
    )}
 
    {/* WHAT'S POPULAR */}
    <Box sx={{ p: 3 }}>
-    <Card movie={popular} load={loadingPopular}>
-     <Box sx={{ display: "flex", flexWrap: "wrap", gap: 2, mb: 2 }}>
-      <Typography variant="h5" fontWeight={600} sx={{ width: "100%" }}>
-       What's Popular
-      </Typography>
+    <Suspense fallback={<Loader />}>
+     <Card movie={popular} load={loadingPopular}>
+      <Box sx={{ display: "flex", flexWrap: "wrap", gap: 2, mb: 2 }}>
+       <Typography variant="h5" fontWeight={600} sx={{ width: "100%" }}>
+        What's Popular
+       </Typography>
 
-      <Toggler value={pType} onChange={setPType} items={mediaTypes} />
-      <Toggler
-       value={isTvToggle ? pTV : pMovie}
-       onChange={isTvToggle ? setPV : setPMovie}
-       items={isTvToggle ? popularTvFilters : popularMovieFilters}
-      />
-     </Box>
-    </Card>
+       <Toggler value={pType} onChange={setPType} items={mediaTypes} />
+       <Toggler
+        value={isTvToggle ? pTV : pMovie}
+        onChange={isTvToggle ? setPV : setPMovie}
+        items={isTvToggle ? popularTvFilters : popularMovieFilters}
+       />
+      </Box>
+     </Card>
+    </Suspense>
    </Box>
 
    {/* TOP RATED */}
    <Box sx={{ p: 3 }}>
-    <Card movie={topRated} load={loadingTopRated}>
-     <Box sx={{ display: "flex", gap: 2, mb: 2 }}>
-      <Typography variant="h5" fontWeight={600}>
-       Top Rated
-      </Typography>
-      <Toggler value={rType} onChange={setRType} items={mediaTypes} />
-     </Box>
-    </Card>
+    <Suspense fallback={<Loader />}>
+     <Card movie={topRated} load={loadingTopRated}>
+      <Box sx={{ display: "flex", gap: 2, mb: 2 }}>
+       <Typography variant="h5" fontWeight={600}>
+        Top Rated
+       </Typography>
+       <Toggler value={rType} onChange={setRType} items={mediaTypes} />
+      </Box>
+     </Card>
+    </Suspense>
    </Box>
   </Box>
  );

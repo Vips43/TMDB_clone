@@ -2,8 +2,10 @@ import Box from "@mui/material/Box";
 import { useNavigate } from "react-router-dom";
 import Typography from "@mui/material/Typography";
 import { Pagination, Stack } from "@mui/material";
-import Vote from "./oth/Vote";
 import { motion, AnimatePresence } from "framer-motion";
+import { lazy, Suspense } from "react";
+import Loader from "../../Loader";
+const Vote = lazy(() => import("./oth/Vote"));
 
 function Card(props) {
  const { movie, children, totalPages, page, active = false, setPage } = props;
@@ -49,7 +51,7 @@ function Card(props) {
         whileHover={{ opacity: 0.85 }}
         style={{
          flexShrink: 0,
-         maxWidth:"190px" ,
+         maxWidth: "190px",
          flexGrow: 0,
          cursor: "pointer",
          borderRadius: 8,
@@ -71,7 +73,9 @@ function Card(props) {
          />
 
          <Box sx={{ position: "absolute", bottom: -16, left: 8 }}>
-          <Vote vote={Math.floor(d.vote_average * 10)} />
+          <Suspense fallback={<Loader/>}>
+           <Vote vote={Math.floor(d.vote_average * 10)} />
+          </Suspense>
          </Box>
         </Box>
 

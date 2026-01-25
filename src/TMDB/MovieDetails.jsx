@@ -1,4 +1,5 @@
 import Box from "@mui/material/Box";
+import "./TMDB.css"
 import Typography from "@mui/material/Typography";
 import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router";
@@ -40,7 +41,7 @@ function MovieDetails() {
 
  if (isLoading)
   return (
-   <div className="text-center text-2xl font-bold my-20 text-white">
+   <div className="animation_loader">
     Loading...
    </div>
   );

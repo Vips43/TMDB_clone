@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import {fetchGlobal} from "./api.js"
+import { fetchGlobal } from "./api.js"
 
 const TMDB_Key = import.meta.env.VITE_TMDB_KEY;
 const TMDB_BEARER = import.meta.env.VITE_TMDB_BEARER;
@@ -70,6 +70,8 @@ const useApiStore = create((set, get) => ({
   /* ================= POPULAR ================= */
 
   fetchPopular: async (type, status) => {
+    if (get().loadingPopular) return;
+    
     const key = `popular_${type}_${status}`;
     const cached = get().cache[key];
 
@@ -101,6 +103,7 @@ const useApiStore = create((set, get) => ({
   /* ================= TOP RATED ================= */
 
   fetchTopRated: async (type) => {
+    if (get().loadingTopRated) return;
     const key = `topRated_${type}`;
     const cached = get().cache[key];
 
@@ -135,6 +138,8 @@ const useApiStore = create((set, get) => ({
   /* ================= TRENDING ================= */
 
   fetchTrending: async (time = "day") => {
+    if (get().loadingTrending) return;
+
     const key = `trending_${time}`;
     const cached = get().cache[key];
 
@@ -240,24 +245,39 @@ const useApiStore = create((set, get) => ({
   trailers: [],
   trLoading: false,
 
-  fetchTrailers: async (params) => {
-    console.log(params)
-    const newData = params.map(p => ({ id: p.id, type: p.media_type }))
-    const videos = newData.map(n => (
-      fetchGlobal(n.type, n.id, "videos")
-    ))
+  fetchTrailers: async () => {
+    const trending = get().trending;
 
-    set({trLoading:true})
-    
+    if (!trending || trending.length === 0) return;
+
+    // Prevent double fetch
+    if (get().trLoading) return;
+
+    set({ trLoading: true });
+
     try {
+      const newData = trending.map((p) => ({
+        id: p.id,
+        type: p.media_type || (p.first_air_date ? "tv" : "movie"),
+      }));
+
+      const videos = newData.map((n) =>
+        fetchGlobal(n.type, n.id, "videos")
+      );
+
       const allvideos = await Promise.all(videos);
-      const data= allvideos.map(a => a.results[0])
-      set({ trailers: data,trLoading:false })
-    
+
+      const data = allvideos
+        .map((a) => a?.results?.[0])
+        .filter(Boolean);
+
+      set({ trailers: data, trLoading: false });
     } catch (error) {
-      console.error("there is an error at trandingTrailers: ", error)
+      console.error("Trailer fetch error:", error);
+      set({ trLoading: false });
     }
-  }
+  },
+
 }));
 
 

@@ -45,7 +45,7 @@ function NavBar() {
     >
      <Toolbar sx={{ display: "grid", gridTemplateColumns:"1fr 1fr", gap: 5 }}>
       
-      <Box component="img" src="/TMDB_logo1.svg" sx={{ height: "15px", max:"auto", boxSizing:"content-box",  }} />
+      <Box component="img" src="/TMDB_logo1.svg" sx={{ height: "20px", max:"auto", boxSizing:"content-box",  }} />
       
       <Box
        sx={{

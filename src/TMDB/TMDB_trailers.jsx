@@ -20,9 +20,9 @@ function TMDB_trailers({ trailers, children }) {
      "&::-webkit-scrollbar": { display: "none" }, 
     }}
    >
-    {trailers.map((v) => (
+    {trailers?.map((v) => (
      <Box
-      key={v.id}
+      key={v?.id}
       sx={{
        flexShrink: 0,
        width: { xs: "300px", md: "450px" },
@@ -43,8 +43,8 @@ function TMDB_trailers({ trailers, children }) {
        }}
       >
        <iframe
-        src={`https://www.youtube.com/embed/${v.key}?rel=0&modestbranding=1`}
-        title={v.name}
+        src={`https://www.youtube.com/embed/${v?.key}?rel=0&modestbranding=1`}
+        title={v?.name}
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         allowFullScreen
         style={{
@@ -64,13 +64,13 @@ function TMDB_trailers({ trailers, children }) {
        noWrap
        sx={{ mt: 1.5, fontWeight: 500, px: 0.5, color:"white" }}
       >
-       {v.name}
+       {v?.name}
       </Typography>
       <Typography
        variant="caption"
        sx={{ color: "text.secondary", px: 0.5, display: "block", color:"white" }}
       >
-       {v.type} • {new Date(v.published_at).toLocaleDateString()}
+       {v?.type} • {new Date(v?.published_at).toLocaleDateString()}
       </Typography>
      </Box>
     ))}

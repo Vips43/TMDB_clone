@@ -1,0 +1,16 @@
+.animation_loader{
+  height: fit-content;
+  background: #000;
+  font-size: 2rem;
+  border: 1px solid black;
+  animation: loadingProgress .1s ease-in-out;
+}
+
+@keyframes loadingProgress{
+  0%{
+    width: 0;
+  }
+  100%{
+    width: 200px;
+  }
+}
