@@ -45,7 +45,8 @@ export default function ProviderLogos() {
        sx={{
         width: "40px",
         height: "40px",
-        p: 0,borderRadius:2,
+        p: 0,
+        borderRadius: 2,
         border: isSelected ? "2px solid #01b4e4" : "2px solid transparent",
         opacity: isSelected ? 1 : 0.5,
        }}

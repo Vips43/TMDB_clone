@@ -2,9 +2,8 @@ import React, { lazy, Suspense, useEffect, useState } from "react";
 import useApiStore from "../oth/js_files/store";
 import { useParams } from "react-router";
 import { Box, Container } from "@mui/material";
-// import LeftPer from "./LeftPer";
-// import RightPer from "./RightPer";
 import { getPersonFull } from "../oth/js_files/api";
+import Loader from "../../../Loader";
 
 const LeftPer = lazy(() => import("./LeftPer"));
 const RightPer = lazy(() => import("./RightPer"));
@@ -36,9 +35,7 @@ function PersonDetails() {
  return (
   <>
    {isLoading ? (
-    <div className="text-center text-2xl font-bold mt-20 animate-pulse">
-     Loading...
-    </div>
+    <Loader/>
    ) : (
     <Container
      maxWidth="xl"

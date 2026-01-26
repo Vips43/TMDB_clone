@@ -1,8 +1,10 @@
 import InsertLinkIcon from "@mui/icons-material/InsertLink";
 import { Box, Typography } from "@mui/material";
 import Keywords from "../show/Keywords";
+import { useParams } from "react-router-dom";
 
 function OthInfo({ movie, type }) {
+ const { id } = useParams();
  const imgUrl = "https://image.tmdb.org/t/p/w500";
 
  const getLanguageName = (code) => {
@@ -123,7 +125,7 @@ function OthInfo({ movie, type }) {
    </Box>
 
    <Box sx={{ mt: 4 }}>
-    <Keywords type={type} />
+    <Keywords type={type} path={`${type}/${id}/keywords`} />
    </Box>
   </Box>
  );

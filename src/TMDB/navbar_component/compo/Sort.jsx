@@ -14,6 +14,7 @@ function Sort() {
 
  const handleSortChange = (val) => {
   setSearchData({ sort_by: val });
+  console.log(searchData)
  };
 
  return (

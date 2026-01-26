@@ -56,7 +56,7 @@ function PersonCard(props) {
       }}
       onClick={() => {
        console.log("hello from persons", per.name);
-       navigate(`/tmdbapp/person/${per.id}/${per.name}`)
+       navigate(`/person/${per.id}/${per.name}`)
       }}
      >
       {/* IMAGE */}

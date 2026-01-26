@@ -25,10 +25,9 @@ const movieAPI = async () => {
 }
 export default movieAPI;
 
-export const keywords = async (id, type) => {
-    const res = await fetch(`https://api.themoviedb.org/3/${type}/${id}/keywords?api_key=${TMDB_Key}`)
+export const keywords = async (path) => {
+    const res = await fetch(`https://api.themoviedb.org/3/${path}?api_key=${TMDB_Key}`)
     const data = await res.json();
-    // console.log("keyword", data)
     return data;
 }
 // keywords(66732)

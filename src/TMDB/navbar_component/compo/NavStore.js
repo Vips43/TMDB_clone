@@ -8,7 +8,7 @@ const useNavStore = create((set) => ({
     country: [],
     providers: [],
     discover: [],
-    searchData: { sort_by: "popularity.desc", watch_region: "IN", with_watch_providers: null, },
+    searchData: { sort_by: "popularity.desc", watch_region: "IN", with_watch_providers: null, with_genres: null },
 
     loading: false,
 
@@ -35,7 +35,6 @@ const useNavStore = create((set) => ({
         );
         const data = await res.json();
         const logo = data.results.filter(i => i.display_priorities[val])
-        // console.log("logo:", logo)
         set({ providers: logo });
     },
 
@@ -53,6 +52,23 @@ const useNavStore = create((set) => ({
         set({ discover: data });
     },
 
-}));
+    searches: [],
+    clearSearches: () => set({
+        searchData: {
+            type: null,
+            sort_by: "popularity.desc",
+            watch_region: "IN",
+            with_watch_providers: null,
+            with_genres: null,
+        },}),
+        fetchSearches: async (type, query) => {
+            const url = `https://api.themoviedb.org/3/discover/${type}?api_key=${TMDB_Key}&${query}`;
+            const res = await fetch(url);
+            const data = await res.json();
+            console.log(data)
+            set({ searches: data.results })
+        }
+
+    }));
 
 export default useNavStore;

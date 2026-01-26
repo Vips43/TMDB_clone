@@ -4,10 +4,14 @@ import Typography from "@mui/material/Typography";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { keywords } from "../oth/js_files/api";
+import useNavStore from "../navbar_component/compo/NavStore";
 
-function Keywords({ type }) {
+function Keywords({ path, type = null, genre = false }) {
+ const setSearchData = useNavStore((state) => state.setSearchData);
+
  const { id } = useParams();
  let [keys, setKeys] = useState(null);
+ const [select, setSelect] = useState([]);
  let [isLoading, setIsLoading] = useState(false);
 
  useEffect(() => {
@@ -15,33 +19,40 @@ function Keywords({ type }) {
   const { signal } = controller;
 
   const getData = async () => {
-   if (!id) return;
    setIsLoading(true);
    try {
-    const data = await keywords(id, type, { signal });
+    const data = await keywords(path, { signal });
     setIsLoading(false);
     setKeys(data);
    } catch (error) {
-    if (error.name === "AbortError") {
-     console.log("Request was cancelled");
-    } else {
-     console.error("fetch error:", error);
-    }
+    console.error("fetch error:", error);
    } finally {
     if (!signal.aborted) setIsLoading(false);
    }
   };
   getData();
-
   return () => {
    controller.abort();
    setKeys(null);
   };
- }, [id, type]);
+ }, [genre ? path : id]);
 
- keys = type === "tv" ? keys?.results : keys?.keywords;
+ if (!genre) {
+  keys = type === "tv" ? keys?.results : keys?.keywords;
+ } else {
+  keys = keys?.genres;
+ }
 
- //  if (keys.length === 0) return <div>No keywords available</div>;
+ useEffect(() => {
+  if (select.length === 0) return;
+  setSearchData({ with_genres: select.join(",") });
+ }, [select, setSearchData]);
+
+ const handleClick = (name) => {
+  setSelect((prev) =>
+   prev.includes(name) ? prev.filter((item) => item !== name) : [...prev, name],
+  );
+ };
 
  if (isLoading) {
   return <Typography sx={{ opacity: 0.5 }}>Loading keywords…</Typography>;
@@ -51,14 +62,14 @@ function Keywords({ type }) {
   <Box
    sx={{
     borderRadius: 2,
-    p: 0,
+    px: 1,
     height: "fit-content",
    }}
   >
    <Typography
     variant="subtitle1"
     sx={{
-        fontSize:"1.25rem",
+     fontSize: "1.25rem",
      fontWeight: 600,
      mb: 1,
      color: "black",
@@ -79,21 +90,22 @@ function Keywords({ type }) {
     ) : (
      ""
     )}
-    {keys?.map((k) => (
-     <Chip
-      key={k.id}
-      label={k.name}
-      size="small"
-      sx={{
-       backgroundColor: "#2c2c2c",
-       color: "#fff",
-       fontSize: "0.75rem",
-       "&:hover": {
-        backgroundColor: "#3a3a3a",
-       },
-      }}
-     />
-    ))}
+    {keys?.map((k) => {
+     const isSelected = select.includes(k.name);
+     return (
+      <Chip
+       key={k.id}
+       label={k.name}
+       size="small"
+       onClick={() => handleClick(k.id)}
+       sx={{
+        backgroundColor: isSelected ? "primary.main" : "#2c2c2c",
+        color: isSelected ? "black" : "#fff",
+        fontSize: "0.75rem",
+       }}
+      />
+     );
+    })}
    </Box>
   </Box>
  );

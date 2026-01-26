@@ -68,7 +68,7 @@ function TMDB_trailers({ trailers, children }) {
       </Typography>
       <Typography
        variant="caption"
-       sx={{ color: "text.secondary", px: 0.5, display: "block", color:"white" }}
+       sx={{ px: 0.5, display: "block", color:"white" }}
       >
        {v?.type} • {new Date(v?.published_at).toLocaleDateString()}
       </Typography>

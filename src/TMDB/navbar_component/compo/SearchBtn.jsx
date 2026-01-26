@@ -1,13 +1,42 @@
-import { Button } from '@mui/material'
-import React from 'react'
+import { Button } from "@mui/material";
+import useNavStore from "./NavStore";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
 function SearchBtn() {
-    
-  return (
-    <>
-    <Button variant='contained' sx={{m:2, width:"auto"}}>Search</Button>
-    </>
-  )
+ const { type } = useParams();
+
+ const [data, setData] = useState("");
+
+ const searchData = useNavStore((state) => state.searchData);
+ const setSearchData = useNavStore((state) => state.setSearchData);
+ const searches = useNavStore((state) => state.searches);
+ const fetchSearches = useNavStore((state) => state.fetchSearches);
+
+ const handleClick = () => {
+  const filtered = Object.fromEntries(
+   Object.entries(searchData).filter(([_, d]) => d !== null && d !== ""),
+  );
+
+  const query = new URLSearchParams(filtered).toString();
+
+  console.log("Filtered:", filtered);
+  console.log("Query:", query);
+
+  fetchSearches(type, query);
+ };
+
+ return (
+  <>
+   <Button
+    variant="contained"
+    sx={{ m: 2, width: "auto" }}
+    onClick={handleClick}
+   >
+    Search
+   </Button>
+  </>
+ );
 }
 
-export default SearchBtn
+export default SearchBtn;

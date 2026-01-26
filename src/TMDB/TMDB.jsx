@@ -72,7 +72,7 @@ useEffect(() => {
 // Trailers (NO ARRAY DEPENDENCY)
 useEffect(() => {
   fetchTrailers();
-}, [tType]);
+}, [tType, trending]);
 
 
  return (
