@@ -4,10 +4,26 @@ import img from "/casts.png";
 import Socials from "./Socials";
 
 function LeftPer({ info }) {
- const imgUrl = `https://image.tmdb.org/t/p/original`;
+ const imgUrl = `https://image.tmdb.org/t/p/w342`;
  const globalData = useApiStore((s) => s.globalData);
 
+ console.log(globalData);
  const gender = globalData?.gender == 1 ? "female" : "male";
+
+ const alsoKnownAs = globalData?.also_known_as?.map((name) => name).join(", ");
+
+ const infoArray = [
+  { label: "Known For", value: globalData?.known_for_department || "N/A" },
+  {
+   label: "Known Credits",
+   value: info.combined_credits?.cast?.length || "N/A",
+  },
+  { label: "Gender", value: gender || "N/A" },
+  { label: "Birthdate", value: globalData?.birthday || "N/A" },
+  { label: "Place of Birth", value: globalData?.place_of_birth || "N/A" },
+  { label: "Day of Death", value: globalData?.deathday || "N/A" },
+  { label: "Also known As", value: alsoKnownAs || "N/A" },
+ ];
 
  return (
   <>
@@ -45,54 +61,17 @@ function LeftPer({ info }) {
      <Typography fontWeight={600} fontSize="1.5rem">
       Personal Info
      </Typography>
-      <Box sx={{display:{xs:"none", sm:"block"}}}>
+     <Box sx={{display:{xs:"none", sm:"block"}}}>
      <Socials id={globalData.id} />
-      </Box>
-     <Typography>
-      <strong>Known For</strong>
-      <br />
-      {globalData?.known_for_department || "N/A"}
-     </Typography>
-     <Typography>
-      <strong>Known Credits</strong>
-      <br />
-      {info.combined_credits?.cast?.length || "N/A"}
-     </Typography>
-     <Typography>
-      <strong>Gender</strong>
-      <br />
-      {gender || "N/A"}
-     </Typography>
-     <Typography>
-      <strong>Birthdate</strong>
-      <br />
-      {globalData?.birthday || "N/A"}
-     </Typography>
-     {globalData?.deathday && (
+     </Box>
+
+     {infoArray.map((infos) => (
       <Typography>
-       <strong>Day of Death</strong>
+       <strong>{infos.label}</strong>
        <br />
-       {globalData?.deathday || "N/A"}
+       <span className="text-sm ">{infos.value}</span>
       </Typography>
-     )}
-     <Typography>
-      <strong>Place of Birth</strong>
-      <br />
-      {globalData?.place_of_birth || "N/A"}
-     </Typography>
-     <Typography>
-      {globalData?.also_known_as && (
-       <>
-        <strong>Also known As</strong>
-        <br />
-        {globalData?.also_known_as?.map((name,i) => (
-         <span key={i}>
-          {name}, <br />
-         </span>
-        ))}
-       </>
-      )}
-     </Typography>
+     ))}
     </Box>
    </Box>
   </>

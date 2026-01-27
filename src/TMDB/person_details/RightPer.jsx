@@ -1,4 +1,4 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Fade, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import useApiStore from "../oth/js_files/store";
 import { getFindById, getPersonFull } from "../oth/js_files/api";
@@ -6,7 +6,8 @@ import { useNavigate, useParams } from "react-router";
 import RightOth from "./RightOth";
 
 function RightPer({ infos }) {
- const imgUrl = `https://image.tmdb.org/t/p/original`;
+ const imgUrl = `https://image.tmdb.org/t/p/w342`;
+ const imgUrlsm = `https://image.tmdb.org/t/p/w185`;
 
  const { id } = useParams();
  const navigate = useNavigate();
@@ -33,7 +34,11 @@ function RightPer({ infos }) {
  return (
   <>
    <Box>
-    <Typography fontWeight={600} fontSize="1.8rem" sx={{ mb: 3, display:{xs:"none", sm:"block"} }}>
+    <Typography
+     fontWeight={600}
+     fontSize="1.8rem"
+     sx={{ mb: 3, display: { xs: "none", sm: "block" } }}
+    >
      {" "}
      {globalData.name}
     </Typography>
@@ -64,25 +69,27 @@ function RightPer({ infos }) {
      <Typography sx={{ fontSize: "1.125rem", fontWeight: "600", mt: 3 }}>
       Known For
      </Typography>
-     <Box sx={{ display: "flex", gap: 1, overflow: "auto" }}>
-      {info?.known_for?.map((k, i) => (
-       <Box
-        key={k.id}
-        sx={{ flexShrink: 0, display: "grid", gap: 2, placeItems: "center" }}
-        onClick={() => navigate(`/tmdbapp/${k?.media_type}/${k?.id}`)}
-       >
+     <Fade in timeout={1000} >
+      <Box sx={{ display: "flex", gap: 1, overflow: "auto" }}>
+       {info?.known_for?.map((k, i) => (
         <Box
-         component="img"
-         maxHeight={200}
-         src={`${imgUrl}${k?.poster_path}`}
-         sx={{ borderRadius: 2 }}
-        />
-        <Typography sx={{ fontSize: ".75em" }}>
-         {k?.name || k?.title || ""}
-        </Typography>
-       </Box>
-      ))}
-     </Box>
+         key={k.id}
+         sx={{ flexShrink: 0, display: "grid", gap: 2, placeItems: "center" }}
+         onClick={() => navigate(`/tmdbapp/${k?.media_type}/${k?.id}`)}
+        >
+         <Box
+          component="img"
+          maxHeight={200}
+          src={`${imgUrlsm}${k?.poster_path}`}
+          sx={{ borderRadius: 2 }}
+         />
+         <Typography sx={{ fontSize: ".75em" }}>
+          {k?.name || k?.title || ""}
+         </Typography>
+        </Box>
+       ))}
+      </Box>
+     </Fade>
      <Box>
       <RightOth info={infos} />
      </Box>
