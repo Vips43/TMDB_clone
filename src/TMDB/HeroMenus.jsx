@@ -14,8 +14,10 @@ function HeroMenus() {
  const fetchGlobalAPI = useApiStore((s) => s.fetchGlobalAPI);
  const globalData = useApiStore((s) => s.globalData);
  const searches = useNavStore((s) => s.searches);
- const searchData = useNavStore((s) => s.searchData);
+ const setSearchData = useNavStore((s) => s.setSearchData);
+ const clearSearches = useNavStore((s) => s.clearSearches);
  const isLoading = useApiStore((s) => s.isLoading);
+ const searchTotalPages = useNavStore((s) => s.searchTotalPages);
 
  const [page, setPage] = useState(1);
  const [open, setOpen] = useState(false);
@@ -26,15 +28,27 @@ function HeroMenus() {
  if (!type) return;
 
  useEffect(() => {
-  setPage(1);
+  if (searches.length === 0) {
+   setPage(1);
+  }
+ }, [searches.length]);
+
+ useEffect(() => {
+  clearSearches();
+  setSearchData({});
  }, [type, keyVal]);
 
  useEffect(() => {
-  fetchGlobalAPI(type, keyVal, page);
- }, [page, type, keyVal]);
+  if (searches.length === 0) {
+   fetchGlobalAPI(type, keyVal, page, searches.length);
+  }
+ }, [page, type, keyVal, searches.length]);
 
- 
- const dataToShow = searches.length > 0 ? searches : globalData.results;
+ const isSearchMode = searches.length > 0;
+ const dataToShow = isSearchMode ? searches : globalData.results;
+ const totalPagesToShow = isSearchMode
+  ? searchTotalPages
+  : globalData.total_pages;
 
  if (isLoading) return <Loader />;
 
@@ -72,7 +86,7 @@ function HeroMenus() {
         movie={dataToShow}
         page={page}
         setPage={setPage}
-        totalPages={globalData.total_pages}
+        totalPages={totalPagesToShow}
         active={true}
        >
         <Typography></Typography>
@@ -84,7 +98,7 @@ function HeroMenus() {
       page={page}
       person={dataToShow}
       setPage={setPage}
-      totalPages={globalData.total_pages}
+      totalPages={totalPagesToShow}
       active={true}
      >
       <Typography sx={{ fontWeight: "600", fontSize: "1.5rem", m: 2 }}>

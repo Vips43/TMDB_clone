@@ -1,9 +1,7 @@
 import { Box, Typography } from "@mui/material";
-import TwitterIcon from "@mui/icons-material/Twitter";
-import InstagramIcon from "@mui/icons-material/Instagram";
-import FacebookIcon from "@mui/icons-material/Facebook";
 import useApiStore from "../oth/js_files/store";
 import img from "/casts.png";
+import Socials from "./Socials";
 
 function LeftPer({ info }) {
  const imgUrl = `https://image.tmdb.org/t/p/original`;
@@ -38,11 +36,7 @@ function LeftPer({ info }) {
       >
        {globalData?.name}
       </Typography>
-      <Box sx={{ display: "flex", gap: 2 }}>
-       <TwitterIcon />
-       <InstagramIcon />
-       <FacebookIcon />
-      </Box>
+      <Socials id={globalData.id} />
      </Box>
     </Box>
     <Box
@@ -51,6 +45,7 @@ function LeftPer({ info }) {
      <Typography fontWeight={600} fontSize="1.5rem">
       Personal Info
      </Typography>
+     <Socials id={globalData.id} />
      <Typography>
       <strong>Known For</strong>
       <br />
@@ -88,8 +83,8 @@ function LeftPer({ info }) {
        <>
         <strong>Also known As</strong>
         <br />
-        {globalData?.also_known_as?.map((name) => (
-         <span>
+        {globalData?.also_known_as?.map((name,i) => (
+         <span key={i}>
           {name}, <br />
          </span>
         ))}

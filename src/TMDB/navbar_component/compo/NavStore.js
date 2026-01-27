@@ -4,6 +4,7 @@ const TMDB_Key = import.meta.env.VITE_TMDB_KEY;
 
 const useNavStore = create((set) => ({
     selected: "",
+    searchTotalPages: 0,
 
     country: [],
     providers: [],
@@ -61,12 +62,12 @@ const useNavStore = create((set) => ({
             with_watch_providers: null,
             with_genres: null,
         },}),
-        fetchSearches: async (type, query) => {
+        fetchSearches: async (type, query, page=1) => {
             const url = `https://api.themoviedb.org/3/discover/${type}?api_key=${TMDB_Key}&${query}`;
             const res = await fetch(url);
             const data = await res.json();
             console.log(data)
-            set({ searches: data.results })
+            set({ searches: data.results, searchTotalPages: data.total_pages, })
         }
 
     }));

@@ -4,14 +4,11 @@ import Typography from "@mui/material/Typography";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { keywords } from "../oth/js_files/api";
-import useNavStore from "../navbar_component/compo/NavStore";
 
-function Keywords({ path, type = null, genre = false }) {
- const setSearchData = useNavStore((state) => state.setSearchData);
+function Keywords({ path, type = null, }) {
 
  const { id } = useParams();
  let [keys, setKeys] = useState(null);
- const [select, setSelect] = useState([]);
  let [isLoading, setIsLoading] = useState(false);
 
  useEffect(() => {
@@ -35,24 +32,9 @@ function Keywords({ path, type = null, genre = false }) {
    controller.abort();
    setKeys(null);
   };
- }, [genre ? path : id]);
+ }, [id]);
 
- if (!genre) {
   keys = type === "tv" ? keys?.results : keys?.keywords;
- } else {
-  keys = keys?.genres;
- }
-
- useEffect(() => {
-  if (select.length === 0) return;
-  setSearchData({ with_genres: select.join(",") });
- }, [select, setSearchData]);
-
- const handleClick = (name) => {
-  setSelect((prev) =>
-   prev.includes(name) ? prev.filter((item) => item !== name) : [...prev, name],
-  );
- };
 
  if (isLoading) {
   return <Typography sx={{ opacity: 0.5 }}>Loading keywords…</Typography>;
@@ -91,16 +73,14 @@ function Keywords({ path, type = null, genre = false }) {
      ""
     )}
     {keys?.map((k) => {
-     const isSelected = select.includes(k.name);
      return (
       <Chip
        key={k.id}
        label={k.name}
        size="small"
-       onClick={() => handleClick(k.id)}
        sx={{
-        backgroundColor: isSelected ? "primary.main" : "#2c2c2c",
-        color: isSelected ? "black" : "#fff",
+        backgroundColor: "#2c2c2c",
+        color: "#fff",
         fontSize: "0.75rem",
        }}
       />

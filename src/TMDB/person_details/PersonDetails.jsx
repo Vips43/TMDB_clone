@@ -3,14 +3,12 @@ import useApiStore from "../oth/js_files/store";
 import { useParams } from "react-router";
 import { Box, Container } from "@mui/material";
 import { getPersonFull } from "../oth/js_files/api";
-import Loader from "../../../Loader";
 
 const LeftPer = lazy(() => import("./LeftPer"));
 const RightPer = lazy(() => import("./RightPer"));
 
 function PersonDetails() {
  const fetchGlobalAPI = useApiStore((s) => s.fetchGlobalAPI);
- const isLoading = useApiStore((s) => s.isLoading);
  const { type, id } = useParams();
 
  const [info, setInfo] = useState([]);
@@ -34,9 +32,7 @@ function PersonDetails() {
 
  return (
   <>
-   {isLoading ? (
-    <Loader/>
-   ) : (
+  
     <Container
      maxWidth="xl"
      sx={{
@@ -76,7 +72,6 @@ function PersonDetails() {
       </Box>
      </Box>
     </Container>
-   )}
   </>
  );
 }

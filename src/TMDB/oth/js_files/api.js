@@ -117,7 +117,7 @@ export const getPersonFull = async (id) => {
     const key = `personFull_${id}`;
 
     if (cache[key]) {
-        // console.log('returned from cached')
+        console.log('returned from cached', cache[key])
         return cache[key];
     }
 
@@ -143,3 +143,9 @@ export const getchTrailers = async (params) => {
     console.log(res)
 }
 
+export async function getIds(id){
+    const res = await fetch(`https://api.themoviedb.org/3/person/${id}/external_ids?api_key=${TMDB_Key}
+`)
+const data = await res.json();
+return data
+}

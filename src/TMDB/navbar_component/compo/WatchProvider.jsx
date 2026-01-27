@@ -54,7 +54,6 @@ function WatchProvider() {
       width: "100%",
       px: 1,
       py: 0.5,
-      borderBottom: "1px solid lightgrey",
       cursor:"pointer"
      }}
      onClick={() => setExpanded(!expanded)}

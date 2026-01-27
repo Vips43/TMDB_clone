@@ -23,7 +23,6 @@ function RightPer({ infos }) {
   const signal = controller;
 
   const getData = async () => {
-   setLoading(true);
    const data = await getFindById(imdb_id, { signal });
    setInfo(data.person_results[0]);
   };

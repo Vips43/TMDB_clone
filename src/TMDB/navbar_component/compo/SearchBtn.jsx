@@ -6,11 +6,7 @@ import { useParams } from "react-router-dom";
 function SearchBtn() {
  const { type } = useParams();
 
- const [data, setData] = useState("");
-
  const searchData = useNavStore((state) => state.searchData);
- const setSearchData = useNavStore((state) => state.setSearchData);
- const searches = useNavStore((state) => state.searches);
  const fetchSearches = useNavStore((state) => state.fetchSearches);
 
  const handleClick = () => {

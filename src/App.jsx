@@ -1,16 +1,6 @@
-import React, { lazy, Suspense } from "react";
+import { lazy, Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
 import Loader from "../Loader";
-
-// import Layout from "./Layout";
-// import TMDB from "./TMDB/TMDB";
-// import MovieDetails from "./TMDB/MovieDetails";
-// import TVShowDetails from "./TMDB/TVShowDetails";
-// import SearchPage from "./TMDB/search/SearchPage";
-// import AuthSuccess from "./TMDB/AuthSuccess";
-// import FullCasts from "./TMDB/show/FullCasts";
-// import HeroMenus from "./TMDB/HeroMenus";
-// import PersonDetails from "./TMDB/person_details/PersonDetails";
 
 const Layout = lazy(() => import("./Layout"));
 const TMDB = lazy(() => import("./TMDB/TMDB"));
