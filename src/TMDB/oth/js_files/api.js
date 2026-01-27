@@ -117,7 +117,7 @@ export const getPersonFull = async (id) => {
     const key = `personFull_${id}`;
 
     if (cache[key]) {
-        console.log('returned from cached', cache[key])
+        // console.log('returned from cached', cache[key])
         return cache[key];
     }
 

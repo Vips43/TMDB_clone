@@ -45,7 +45,9 @@ function LeftPer({ info }) {
      <Typography fontWeight={600} fontSize="1.5rem">
       Personal Info
      </Typography>
+      <Box sx={{display:{xs:"none", sm:"block"}}}>
      <Socials id={globalData.id} />
+      </Box>
      <Typography>
       <strong>Known For</strong>
       <br />
