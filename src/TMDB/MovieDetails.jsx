@@ -19,7 +19,7 @@ function MovieDetails() {
  const type = "movie";
 
  const movieDetail = useApiStore((state) => state.movieDetail);
- const isLoading = useApiStore((state) => state.isLoading);
+ const movieLoading = useApiStore((state) => state.movieLoading);
  const directorInfo = useApiStore((state) => state.directorInfo);
 
  useEffect(() => {
@@ -40,7 +40,7 @@ function MovieDetails() {
   );
  }
 
- if (isLoading)
+ if (movieLoading)
   return (
    <Loader text={"movie details"}/>
   );

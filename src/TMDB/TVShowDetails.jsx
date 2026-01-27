@@ -6,7 +6,7 @@ import useApiStore from "./oth/js_files/store";
 import { fetchGlobal } from "./oth/js_files/api";
 import Vote from "./oth/Vote";
 import ActionButtons from "./oth/ActionButtons";
-import ShowExtraDetails  from "./show/ShowExtraDetails";
+import ShowExtraDetails from "./show/ShowExtraDetails";
 import Loader from "../../Loader";
 
 function TVShowDetails() {
@@ -17,6 +17,7 @@ function TVShowDetails() {
  const [content_rating, setContenet_Rating] = useState(null);
 
  const movieDetail = useApiStore((state) => state.tvDetail);
+ const tvLoading = useApiStore((state) => state.tvLoading);
  const setMovieDetail = useApiStore((state) => state.setMovieDetail);
 
  useEffect(() => {
@@ -47,14 +48,14 @@ function TVShowDetails() {
 
  /* 🔑 PREVENT CRASH ON REFRESH */
  if (!movieDetail || !movieDetail.id) {
-  return (
-   <Loader text={"show loading"} />
-  );
+  return <Loader text={"show loading"} />;
  }
 
  const CreatorInfo = () => {
   if (!movieDetail.created_by || movieDetail.created_by.length === 0)
    return null;
+
+  if (tvLoading) return <Loader />;
 
   return (
    <Box sx={{ mt: 3 }}>

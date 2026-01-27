@@ -57,7 +57,10 @@ function Card(props) {
          borderRadius: 8,
          boxShadow: "2px 2px 5px grey",
         }}
-        onClick={() => navigate(`/tmdbapp/${type}/${d.id}`)}
+        onClick={() => {
+         navigate(`/tmdbapp/${type}/${d.id}`);
+         window.scrollTo({top:0, behavior:"smooth"});
+        }}
        >
         {/* IMAGE */}
         <Box sx={{ position: "relative" }}>
@@ -73,7 +76,7 @@ function Card(props) {
          />
 
          <Box sx={{ position: "absolute", bottom: -16, left: 8 }}>
-          <Suspense fallback={<Loader/>}>
+          <Suspense fallback={<Loader />}>
            <Vote vote={Math.floor(d.vote_average * 10)} />
           </Suspense>
          </Box>

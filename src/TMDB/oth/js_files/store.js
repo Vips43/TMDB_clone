@@ -19,6 +19,8 @@ const useApiStore = create((set, get) => ({
   loadingPopular: false,
   loadingTopRated: false,
   loadingTrending: false,
+  movieLoading: false,
+  tvLoading: false,
   isLoading: false,
 
   toggle: false,
@@ -71,7 +73,7 @@ const useApiStore = create((set, get) => ({
 
   fetchPopular: async (type, status) => {
     if (get().loadingPopular) return;
-    
+
     const key = `popular_${type}_${status}`;
     const cached = get().cache[key];
 
@@ -184,7 +186,7 @@ const useApiStore = create((set, get) => ({
       return;
     }
 
-    set({ isLoading: true });
+    set({ [type === "tv" ? "tvLoading" : "movieLoading"]: false, });
     try {
       const endpoint =
         type === "tv"
@@ -196,12 +198,12 @@ const useApiStore = create((set, get) => ({
       // console.log(data)
       set((state) => ({
         [type === "tv" ? "tvDetail" : "movieDetail"]: data,
-        isLoading: false,
+        [type === "tv" ? "tvLoading" : "movieLoading"]: false,
         err: null,
         cache: { ...state.cache, [key]: data },
       }));
     } catch (err) {
-      set({ isLoading: false, err });
+      set({ detailLoading: false, err });
     }
   },
 
