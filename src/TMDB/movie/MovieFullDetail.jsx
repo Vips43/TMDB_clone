@@ -7,7 +7,7 @@ import RightCompo from "./RightCompo.jsx";
 import useApiStore from "../oth/js_files/store.js";
 
 function MovieFullDetail({ movie }) {
- const imgUrl = "https://image.tmdb.org/t/p/w500";
+ const imgUrl = "https://image.tmdb.org/t/p/w342";
  const { id } = useParams();
  const type = "movie";
 

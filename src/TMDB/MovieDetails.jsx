@@ -12,7 +12,7 @@ import Loader from "../../Loader";
 
 function MovieDetails() {
  const navigate = useNavigate();
- const imgUrl = "https://image.tmdb.org/t/p/original";
+ const imgUrl = "https://image.tmdb.org/t/p/w342";
  const originalImgUrl = "https://image.tmdb.org/t/p/original";
  const { id } = useParams();
 
