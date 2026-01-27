@@ -33,7 +33,7 @@ function RightPer({ infos }) {
  return (
   <>
    <Box>
-    <Typography fontWeight={600} fontSize="1.8rem" sx={{ mb: 3 }}>
+    <Typography fontWeight={600} fontSize="1.8rem" sx={{ mb: 3, display:{xs:"none", sm:"block"} }}>
      {" "}
      {globalData.name}
     </Typography>

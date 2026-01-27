@@ -8,21 +8,19 @@ const Card = lazy(() => import("./Card"));
 const TMDB_trailers = lazy(() => import("./TMDB_trailers"));
 
 function TMDB() {
-const popular = useApiStore((s) => s.popular);
-const topRated = useApiStore((s) => s.topRated);
-const trending = useApiStore((s) => s.trending);
-const trailers = useApiStore((s) => s.trailers);
+ const popular = useApiStore((s) => s.popular);
+ const topRated = useApiStore((s) => s.topRated);
+ const trending = useApiStore((s) => s.trending);
+ const trailers = useApiStore((s) => s.trailers);
 
-const loadingPopular = useApiStore((s) => s.loadingPopular);
-const loadingTopRated = useApiStore((s) => s.loadingTopRated);
-const loadingTrending = useApiStore((s) => s.loadingTrending);
+ const loadingPopular = useApiStore((s) => s.loadingPopular);
+ const loadingTopRated = useApiStore((s) => s.loadingTopRated);
+ const loadingTrending = useApiStore((s) => s.loadingTrending);
 
-const fetchPopular = useApiStore((s) => s.fetchPopular);
-const fetchTopRated = useApiStore((s) => s.fetchTopRated);
-const fetchTrending = useApiStore((s) => s.fetchTrending);
-const fetchTrailers = useApiStore((s) => s.fetchTrailers);
-
-
+ const fetchPopular = useApiStore((s) => s.fetchPopular);
+ const fetchTopRated = useApiStore((s) => s.fetchTopRated);
+ const fetchTrending = useApiStore((s) => s.fetchTrending);
+ const fetchTrailers = useApiStore((s) => s.fetchTrailers);
 
  const [pType, setPType] = useState("movie");
  const [pTV, setPV] = useState("airing_today");
@@ -53,30 +51,29 @@ const fetchTrailers = useApiStore((s) => s.fetchTrailers);
   { label: "Popular", key: "popular" },
   { label: "Top Rated", key: "top_rated" },
   { label: "Upcoming", key: "upcoming" },
-];
-// Popular
-useEffect(() => {
+ ];
+ // Popular
+ useEffect(() => {
   fetchPopular(pType, isTvToggle ? pTV : pMovie);
-}, [pType, pTV, pMovie,isTvToggle]);
+ }, [pType, pTV, pMovie, isTvToggle]);
 
-// Top Rated
-useEffect(() => {
+ // Top Rated
+ useEffect(() => {
   fetchTopRated(rType);
-}, [rType]);
+ }, [rType]);
 
-// Trending
-useEffect(() => {
+ // Trending
+ useEffect(() => {
   fetchTrending(tType);
-}, [tType]);
+ }, [tType]);
 
-// Trailers (NO ARRAY DEPENDENCY)
-useEffect(() => {
+ // Trailers (NO ARRAY DEPENDENCY)
+ useEffect(() => {
   fetchTrailers();
-}, [tType, trending]);
-
+ }, [tType, trending]);
 
  return (
-     <Box sx={{ maxWidth: "1400px", mx: "auto" }}>
+  <Box sx={{ maxWidth: "1400px", mx: "auto", }}>
    {/* TRENDING */}
    <Box
     sx={{

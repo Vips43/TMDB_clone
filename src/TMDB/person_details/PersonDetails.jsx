@@ -31,13 +31,11 @@ function PersonDetails() {
  }, [id]);
 
  return (
-  <>
   
     <Container
      maxWidth="xl"
      sx={{
       py: 2,
-      minHeight: "100vh",
       bgcolor: "white",
      }}
     >
@@ -53,14 +51,7 @@ function PersonDetails() {
        gap: 4,
       }}
      >
-      <Box
-       sx={{
-        // 1. Sticky Logic
-        position: { xs: "static", sm: "sticky" },
-        top: 10,
-        alignSelf: "start",
-       }}
-      >
+      <Box>
        <Suspense>
         <LeftPer info={info} />
        </Suspense>
@@ -72,7 +63,7 @@ function PersonDetails() {
       </Box>
      </Box>
     </Container>
-  </>
+
  );
 }
 
