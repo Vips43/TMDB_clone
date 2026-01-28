@@ -8,11 +8,20 @@ export function capitalizeFirstLetter(letter) {
   return String(letter).charAt(0).toUpperCase() + String(letter).slice(1);
 }
 
+export const debounce = (func, wait) => {
+  let timeout;
+  return (...args) => {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => {
+      func.apply(this, args);
+    }, wait);
+  }
+}
 
 export async function getRequestToken() {
-  const res = await fetch(
-    "https://api.themoviedb.org/3/authentication/token/new",
+  const res = await fetch( "https://api.themoviedb.org/3/authentication/token/new",
     {
+      method: 'GET',
       headers: {
         Authorization: "Bearer " + TMDB_BEARER,
         accept: "application/json",
@@ -21,6 +30,25 @@ export async function getRequestToken() {
   );
   const data = await res.json();
   return data.request_token;
+}
+
+export async function createSession(request_token) {
+   const options = {
+      method: 'POST',
+      headers: {
+         accept: 'application/json',
+         "Content-Type": "application/json",
+         Authorization: 'Bearer '+ TMDB_BEARER
+      },
+      body: JSON.stringify({ request_token: request_token })
+
+   };
+   const res = await fetch(`https://api.themoviedb.org/3/authentication/session/new`, options)
+   const data = await res.json();
+   if (!data.success) return;
+
+   localStorage.setItem("session_id", data.session_id)
+   return data;
 }
 
 
@@ -39,13 +67,13 @@ export async function setFav_Watch(type, id, fav, userId, SESSION_ID) {
       favorite: fav,
     }),
   };
-
+  
   const res = await fetch(`https://api.themoviedb.org/3/account/${userId}/favorite?session_id=${SESSION_ID}`, options);
   const data = await res.json();
   return data;
 }
 
-export async function getFav_Watch() {
+export async function getFav_Watch(user_id) {
 
   const options = {
     method: 'GET',
@@ -55,22 +83,21 @@ export async function getFav_Watch() {
     }
   };
 
-  const res = await fetch('https://api.themoviedb.org/3/account/22466989/favorite/movies?language=en-US&page=1&sort_by=created_at.asc', options)
+  const res = await fetch(`https://api.themoviedb.org/3/account/${user_id}/favorite/movies?language=en-US&page=1&sort_by=created_at.asc`, options)
   const data = await res.json();
-  console.log(data)
+  return data;
 }
 
-export async function Auth() {
-  const session_id = localStorage.getItem("TMDB_SESSION")
+export async function getAccount(sessionId) {
 
-  const options = {
-    headers: { Authorization: 'Bearer ' + TMDB_BEARER }
-  };
-
-  const res = await fetch(`https://api.themoviedb.org/3/account?session_id=${session_id}`, options)
-  const data = await res.json();
-
-  localStorage.setItem("TMDB_AC", JSON.stringify(data.id))
+   const res = await fetch(`https://api.themoviedb.org/3/account?session_id=${sessionId}`, {
+      headers: {
+         accept: "application/json",
+         Authorization: "Bearer " + TMDB_BEARER,
+      },
+   })
+   const data = await res.json();
+   localStorage.setItem("TMDB_user", JSON.stringify(data));
 }
 
 export async function getAccountStates(type, id, session_id) {

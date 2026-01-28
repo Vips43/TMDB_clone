@@ -61,7 +61,7 @@ function Videos({ type, }) {
        <iframe
         src={`https://www.youtube.com/embed/${v.key}`}
         title={v.name}
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allow="accelerometer; autoplay; compute-pressure; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         allowFullScreen
         style={{
          position: "absolute",

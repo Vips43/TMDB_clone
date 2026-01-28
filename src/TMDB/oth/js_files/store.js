@@ -186,7 +186,7 @@ const useApiStore = create((set, get) => ({
       return;
     }
 
-    set({ [type === "tv" ? "tvLoading" : "movieLoading"]: false, });
+    set({ [type === "tv" ? "tvLoading" : "movieLoading"]: true, });
     try {
       const endpoint =
         type === "tv"

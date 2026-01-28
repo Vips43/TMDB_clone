@@ -42,10 +42,10 @@ function TMDB_trailers({ trailers, children }) {
         transition: "transform 0.3s ease",
        }}
       >
-       <iframe
+       <iframe 
         src={`https://www.youtube.com/embed/${v?.key}?rel=0&modestbranding=1`}
         title={v?.name}
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; compute-pressure;"
         allowFullScreen
         style={{
          position: "absolute",

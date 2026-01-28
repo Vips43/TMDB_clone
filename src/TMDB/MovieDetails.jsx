@@ -21,7 +21,7 @@ function MovieDetails() {
  const movieDetail = useApiStore((state) => state.movieDetail);
  const movieLoading = useApiStore((state) => state.movieLoading);
  const directorInfo = useApiStore((state) => state.directorInfo);
-
+ 
  useEffect(() => {
   if (!id) return;
   const controller = new AbortController();
@@ -39,7 +39,6 @@ function MovieDetails() {
    </Box>
   );
  }
-
  if (movieLoading)
   return (
    <Loader text={"movie details"}/>

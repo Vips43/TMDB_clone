@@ -1,10 +1,9 @@
 import * as React from "react";
-import { AppBar, Box, CssBaseline, Toolbar, Typography } from "@mui/material";
-import MenuIcon from "@mui/icons-material/Menu";
+import { AppBar, Box, Button, CssBaseline, Toolbar,} from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import NavDrawer from "./NavDrawer";
 import NavDropdown from "./NavDropdown";
 import Searchbtn from "../search/compo/Searchbtn";
+import LoginBtn from "./compo/LoginBtn";
 
 /* ================= CONSTANTS ================= */
 
@@ -26,6 +25,7 @@ const PEOPLE_MENU = [{ label: "Popular People", key: "popular" }];
 /* ================= NAVBAR ================= */
 
 function NavBar() {
+
  const navigate = useNavigate();
 
  return (
@@ -43,7 +43,7 @@ function NavBar() {
       zIndex: (theme) => theme.zIndex.drawer + 1,
      }}
     >
-     <Toolbar sx={{ display: "grid", gridTemplateColumns:"1fr 1fr", gap: 5 }}>
+     <Toolbar sx={{ display: "grid", gridTemplateColumns:"1fr 1fr 1fr", gap: 5 }}>
       
       <Box component="img" src="/TMDB_logo1.svg" sx={{ height: "20px", max:"auto", boxSizing:"content-box",cursor:"pointer",  }}
       onClick={()=>navigate("/")}
@@ -72,6 +72,8 @@ function NavBar() {
         onSelect={(key) => navigate(`/tmdbapp/nav/person/${key}`)}
        />
       </Box>
+
+      <LoginBtn/>
 
       
      </Toolbar>

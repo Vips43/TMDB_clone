@@ -1,6 +1,7 @@
 import { lazy, Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
 import Loader from "../Loader";
+import ScrollToTop from "./TMDB/ScrollToTop";
 
 const Layout = lazy(() => import("./Layout"));
 const TMDB = lazy(() => import("./TMDB/TMDB"));
@@ -17,6 +18,7 @@ function App() {
 
  return (
   <Suspense fallback={<Loader />}>
+    <ScrollToTop />
    <Routes>
     {/* LAYOUT WRAPPER */}
     <Route element={<Layout />}>

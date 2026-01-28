@@ -57,10 +57,7 @@ function Card(props) {
          borderRadius: 8,
          boxShadow: "2px 2px 5px grey",
         }}
-        onClick={() => {
-         navigate(`/tmdbapp/${type}/${d.id}`);
-         window.scrollTo({top:0, behavior:"smooth"});
-        }}
+        onClick={() => navigate(`/tmdbapp/${type}/${d.id}`)}
        >
         {/* IMAGE */}
         <Box sx={{ position: "relative" }}>
