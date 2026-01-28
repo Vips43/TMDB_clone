@@ -33,7 +33,10 @@ function LoginBtn() {
   }
 
   const token = await getRequestToken();
-  window.location.href = `https://www.themoviedb.org/authenticate/${token}?redirect_to=http://localhost:5173`;
+  const redirectUrl = `${window.location.origin}`;
+
+window.location.href = 
+  `https://www.themoviedb.org/authenticate/${token}?redirect_to=${encodeURIComponent(redirectUrl)}`;
  };
 
  // After redirect: create session + get user
