@@ -31,7 +31,7 @@ function ActionButtons({ type, id }) {
    const favs = await setFav_Watch(type, id, true, user, sId);
    console.log(favs);
   };
-  //   getData()
+    getData()
  }, [type, id, true, user, sId]);
 
  useEffect(() => {
