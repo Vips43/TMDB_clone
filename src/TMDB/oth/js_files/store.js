@@ -192,7 +192,7 @@ const useApiStore = create((set, get) => ({
         type === "tv"
           ? `https://api.themoviedb.org/3/tv/${id}?api_key=${TMDB_Key}`
           : `https://api.themoviedb.org/3/movie/${id}?api_key=${TMDB_Key}&language=en-US`;
-      console.log(type, endpoint)
+      
       const res = await fetch(endpoint);
       const data = await res.json();
       // console.log(data)

@@ -230,7 +230,7 @@ function TVShowDetails() {
            showDetails={true}
           />
          </Box>
-         <ActionButtons />
+         <ActionButtons type={"tv"} id={id}/>
         </Box>
 
         {/* --- DESKTOP ONLY: Tagline, Overview, Creators --- */}

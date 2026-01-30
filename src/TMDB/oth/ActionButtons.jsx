@@ -9,12 +9,18 @@ import {
  FaRegBookmark,
  FaBookmark,
 } from "react-icons/fa";
-import { getFav_Watch, setFav_Watch } from "./js_files/Auth";
+import { getFav_Watch, setFav, setWatch } from "./js_files/Auth";
 
 function ActionButtons({ type, id }) {
  const [user, setUser] = useState(null);
  const [sId, setSId] = useState(null);
  const [favs, setFavs] = useState([]);
+ const [watchs, setWatchs] = useState([]);
+ const [status, setStatus] = useState({
+  list: false,
+  fav: false,
+  watch: false,
+ });
 
  useEffect(() => {
   let currUser = localStorage.getItem("TMDB_user") || "";
@@ -27,27 +33,58 @@ function ActionButtons({ type, id }) {
  }, []);
 
  useEffect(() => {
-  const getData = async () => {
-   const favs = await setFav_Watch(type, id, true, user, sId);
-   console.log(favs);
-  };
-    getData()
- }, [type, id, true, user, sId]);
+  if (!user || !sId) return;
 
- useEffect(() => {
   const getData = async () => {
-   const getFav = await getFav_Watch(user);
-   setFavs(getFav.results.map((g) => g.id));
-   console.log(favs);
+   await setFav(type, id, status.fav, user, sId);
+   //    console.log(status, favs);
   };
   getData();
+ }, [status.fav, user, sId, type, id]);
+
+ useEffect(() => {
+  if (!user || !sId) return;
+
+  const setData = async () => {
+   await setWatch(type, id, status.watch, user, sId);
+  };
+
+  setData();
+ }, [status.watch, user, sId, type, id]);
+
+ useEffect(() => {
+  if (!user) return;
+
+  const getWatchs = async () => {
+   const res = await getFav_Watch(user, type, "watchlist", sId);
+   setWatchs(res.results.map((g) => g.id));
+  };
+
+  getWatchs();
  }, [user]);
 
- const [status, setStatus] = useState({
-  list: false,
-  fav: false,
-  watch: false,
- });
+ useEffect(() => {
+  if (!user) return;
+
+  const getWatchs = async () => {
+   const res = await getFav_Watch(user, type, "favorite", sId);
+   setFavs(res.results.map((g) => g.id));
+  };
+
+  getWatchs();
+ }, [user]);
+
+ useEffect(() => {
+  if (!favs || !id) return;
+
+  setStatus((prev) => ({ ...prev, fav: favs.includes(id) }));
+ }, [favs, id]);
+
+ useEffect(() => {
+  if (!watchs || !id) return;
+
+  setStatus((prev) => ({ ...prev, watch: watchs.includes(id) }));
+ }, [watchs, id]);
 
  const handleToggle = (key) => {
   setStatus((prev) => ({ ...prev, [key]: !prev[key] }));

@@ -19,7 +19,7 @@ export const debounce = (func, wait) => {
 }
 
 export async function getRequestToken() {
-  const res = await fetch( "https://api.themoviedb.org/3/authentication/token/new",
+  const res = await fetch("https://api.themoviedb.org/3/authentication/token/new",
     {
       method: 'GET',
       headers: {
@@ -33,26 +33,26 @@ export async function getRequestToken() {
 }
 
 export async function createSession(request_token) {
-   const options = {
-      method: 'POST',
-      headers: {
-         accept: 'application/json',
-         "Content-Type": "application/json",
-         Authorization: 'Bearer '+ TMDB_BEARER
-      },
-      body: JSON.stringify({ request_token: request_token })
+  const options = {
+    method: 'POST',
+    headers: {
+      accept: 'application/json',
+      "Content-Type": "application/json",
+      Authorization: 'Bearer ' + TMDB_BEARER
+    },
+    body: JSON.stringify({ request_token: request_token })
 
-   };
-   const res = await fetch(`https://api.themoviedb.org/3/authentication/session/new`, options)
-   const data = await res.json();
-   if (!data.success) return;
+  };
+  const res = await fetch(`https://api.themoviedb.org/3/authentication/session/new`, options)
+  const data = await res.json();
+  if (!data.success) return;
 
-   localStorage.setItem("session_id", data.session_id)
-   return data;
+  localStorage.setItem("session_id", data.session_id)
+  return data;
 }
 
 
-export async function setFav_Watch(type, id, fav, userId, SESSION_ID) {
+export async function setFav(type, id, fav, userId, SESSION_ID) {
 
   const options = {
     method: 'POST',
@@ -67,13 +67,36 @@ export async function setFav_Watch(type, id, fav, userId, SESSION_ID) {
       favorite: fav,
     }),
   };
-  
+
   const res = await fetch(`https://api.themoviedb.org/3/account/${userId}/favorite?session_id=${SESSION_ID}`, options);
   const data = await res.json();
+
+  return data;
+}
+export async function setWatch(type, id, watch, userId, SESSION_ID) {
+
+  const options = {
+    method: 'POST',
+    headers: {
+      accept: "application/json",
+      "content-type": "application/json",
+      Authorization: 'Bearer ' + TMDB_BEARER
+    },
+    body: JSON.stringify({
+      "media_type": type,
+      "media_id": id,
+      "watchlist": watch,
+    }),
+  };
+
+  const res = await fetch(`https://api.themoviedb.org/3/account/${userId}/watchlist?session_id=${SESSION_ID}`, options);
+  const data = await res.json();
+
   return data;
 }
 
-export async function getFav_Watch(user_id) {
+export async function getFav_Watch(user_id, type,listType, SESSION_ID) {
+ const mediaType = type === "movie" ? "movies" : "tv";
 
   const options = {
     method: 'GET',
@@ -83,21 +106,21 @@ export async function getFav_Watch(user_id) {
     }
   };
 
-  const res = await fetch(`https://api.themoviedb.org/3/account/${user_id}/favorite/movies?language=en-US&page=1&sort_by=created_at.asc`, options)
+  const res = await fetch(`https://api.themoviedb.org/3/account/${user_id}/${listType}/${mediaType}?api_key=${TMDB_Key}&session_id=${SESSION_ID}`, options)
   const data = await res.json();
   return data;
 }
 
 export async function getAccount(sessionId) {
 
-   const res = await fetch(`https://api.themoviedb.org/3/account?session_id=${sessionId}`, {
-      headers: {
-         accept: "application/json",
-         Authorization: "Bearer " + TMDB_BEARER,
-      },
-   })
-   const data = await res.json();
-   localStorage.setItem("TMDB_user", JSON.stringify(data));
+  const res = await fetch(`https://api.themoviedb.org/3/account?session_id=${sessionId}`, {
+    headers: {
+      accept: "application/json",
+      Authorization: "Bearer " + TMDB_BEARER,
+    },
+  })
+  const data = await res.json();
+  localStorage.setItem("TMDB_user", JSON.stringify(data));
 }
 
 export async function getAccountStates(type, id, session_id) {

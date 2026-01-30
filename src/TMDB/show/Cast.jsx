@@ -9,7 +9,6 @@ import img from "/casts.png";
 import useApiStore from "../oth/js_files/store";
 
 function Cast({ cast, url, cardWidth = 120 }) {
- console.log(img);
  const navigate = useNavigate();
 
  const isLoading = useApiStore((state) => state.isLoading);
