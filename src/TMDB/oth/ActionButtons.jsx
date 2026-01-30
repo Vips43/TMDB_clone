@@ -10,90 +10,76 @@ import {
  FaBookmark,
 } from "react-icons/fa";
 import { getFav_Watch, setFav, setWatch } from "./js_files/Auth";
+import useApiStore from "./js_files/store";
 
 function ActionButtons({ type, id }) {
  const [user, setUser] = useState(null);
  const [sId, setSId] = useState(null);
  const [favs, setFavs] = useState([]);
  const [watchs, setWatchs] = useState([]);
- const [status, setStatus] = useState({
-  list: false,
-  fav: false,
-  watch: false,
- });
 
+ const status = useApiStore((state) => state.status);
+ const setStatus = useApiStore((state) => state.setStatus);
+
+ // Init user + session
  useEffect(() => {
-  let currUser = localStorage.getItem("TMDB_user") || "";
-  let session_id = localStorage.getItem("session_id") || "";
-  if (currUser) {
-   currUser = JSON.parse(currUser);
-   setUser(currUser.id);
-  }
-  setSId(session_id);
+  const u = localStorage.getItem("TMDB_user");
+  const sid = localStorage.getItem("session_id");
+  if (u) setUser(JSON.parse(u).id);
+  if (sid) setSId(sid);
  }, []);
 
+ // Fetch favorites + watchlist
  useEffect(() => {
   if (!user || !sId) return;
 
-  const getData = async () => {
-   await setFav(type, id, status.fav, user, sId);
-   //    console.log(status, favs);
+  const fetchLists = async () => {
+   try {
+    const [favRes, watchRes] = await Promise.all([
+     getFav_Watch(user, type, "favorite", sId),
+     getFav_Watch(user, type, "watchlist", sId),
+    ]);
+
+    setFavs(favRes?.results?.map((g) => g.id) || []);
+    setWatchs(watchRes?.results?.map((g) => g.id) || []);
+   } catch (err) {
+    console.error("Failed to fetch lists", err);
+   }
   };
-  getData();
+
+  fetchLists();
+ }, [user, sId, type]);
+
+ // Sync Zustand state from server (IMPORTANT)
+ useEffect(() => {
+  if (!id) return;
+
+  setStatus({
+   fav: favs.includes(id),
+   watch: watchs.includes(id),
+  });
+ }, [favs, watchs, id, setStatus]);
+
+ // Update favorite on toggle
+ useEffect(() => {
+  if (!user || !sId) return;
+  setFav(type, id, status.fav, user, sId);
  }, [status.fav, user, sId, type, id]);
 
+ // Update watchlist on toggle
  useEffect(() => {
   if (!user || !sId) return;
-
-  const setData = async () => {
-   await setWatch(type, id, status.watch, user, sId);
-  };
-
-  setData();
+  setWatch(type, id, status.watch, user, sId);
  }, [status.watch, user, sId, type, id]);
 
- useEffect(() => {
-  if (!user) return;
-
-  const getWatchs = async () => {
-   const res = await getFav_Watch(user, type, "watchlist", sId);
-   setWatchs(res.results.map((g) => g.id));
-  };
-
-  getWatchs();
- }, [user]);
-
- useEffect(() => {
-  if (!user) return;
-
-  const getWatchs = async () => {
-   const res = await getFav_Watch(user, type, "favorite", sId);
-   setFavs(res.results.map((g) => g.id));
-  };
-
-  getWatchs();
- }, [user]);
-
- useEffect(() => {
-  if (!favs || !id) return;
-
-  setStatus((prev) => ({ ...prev, fav: favs.includes(id) }));
- }, [favs, id]);
-
- useEffect(() => {
-  if (!watchs || !id) return;
-
-  setStatus((prev) => ({ ...prev, watch: watchs.includes(id) }));
- }, [watchs, id]);
-
+ // Correct toggle handler (key-based)
  const handleToggle = (key) => {
-  setStatus((prev) => ({ ...prev, [key]: !prev[key] }));
+  setStatus({ [key]: !status[key] });
  };
 
  const actions = [
   {
    id: "list",
-
    icon: <FaListUl style={{ color: status.list ? "#01b4e4" : "inherit" }} />,
    label: status.list ? "Remove from List" : "Add to List",
   },
@@ -115,26 +101,26 @@ function ActionButtons({ type, id }) {
 
  return (
   <Box sx={{ display: "flex", gap: 2, alignItems: "center" }}>
-   {actions.map((action) => (
-    <Tooltip key={action.id} title={action.label} arrow>
+   {actions.map((a) => (
+    <Tooltip key={a.id} title={a.label} arrow>
      <IconButton
-      onClick={() => handleToggle(action.id)}
+      onClick={() => handleToggle(a.id)}
       sx={{
        backgroundColor: "#032541",
        color: "white",
-       width: "46px",
-       height: "46px",
-       fontSize: "1rem",
-       transition: "all 0.2s ease-in-out",
+       width: 30,
+       height: 30,
+       fontSize: "0.95rem",
+       transition: "all .2s",
        "&:hover": {
         backgroundColor: "white",
         color: "#032541",
         transform: "translateY(-1px)",
-        boxShadow: "0px 4px 10px rgba(0,0,0,0.3)",
+        boxShadow: "0 4px 10px rgba(0,0,0,.3)",
        },
       }}
      >
-      {action.icon}
+      {a.icon}
      </IconButton>
     </Tooltip>
    ))}

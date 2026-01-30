@@ -192,7 +192,7 @@ const useApiStore = create((set, get) => ({
         type === "tv"
           ? `https://api.themoviedb.org/3/tv/${id}?api_key=${TMDB_Key}`
           : `https://api.themoviedb.org/3/movie/${id}?api_key=${TMDB_Key}&language=en-US`;
-      
+
       const res = await fetch(endpoint);
       const data = await res.json();
       // console.log(data)
@@ -279,6 +279,13 @@ const useApiStore = create((set, get) => ({
       set({ trLoading: false });
     }
   },
+
+  status: { list: false, fav: false, watch: false },
+  setStatus: (partial) => set(state => ({ status: { ...state.status, ...partial, } })),
+
+  resetStatus: () => set({
+    status: { list: false, fav: false, watch: false }
+  })
 
 }));
 
