@@ -249,12 +249,9 @@ const useApiStore = create((set, get) => ({
 
   fetchTrailers: async () => {
     const trending = get().trending;
-
     if (!trending || trending.length === 0) return;
-
     // Prevent double fetch
     if (get().trLoading) return;
-
     set({ trLoading: true });
 
     try {
