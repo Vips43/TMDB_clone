@@ -15,7 +15,7 @@ function NavDropdown({ label, items, onSelect }) {
     onClick={(e) => setAnchorEl(e.currentTarget)}
     sx={{
      color: "#fff",
-     fontSize: "0.85rem",
+     fontSize: {xs:"0.85rem", sm:"1rem"},
      cursor: "pointer",
      px: 0.5,
      whiteSpace: "nowrap",

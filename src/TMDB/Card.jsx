@@ -63,6 +63,7 @@ function Card(props) {
         <Box sx={{ position: "relative" }}>
          <Box
           component="img"
+          loading="lazy"
           src={`${imgUrl}${d.poster_path}`}
           alt={title}
           sx={{

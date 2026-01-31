@@ -53,9 +53,10 @@ function NavBar() {
        sx={{
         display: {  xs: "flex" },
         alignItems: "center",
+        justifyContent:"space-around",
         gap: 1,
-       }}
-      >
+    }}
+    >
        <NavDropdown
         label="Movies"
         items={MOVIE_MENU}
@@ -68,6 +69,7 @@ function NavBar() {
        />
        <NavDropdown
         label="People"
+
         items={PEOPLE_MENU}
         onSelect={(key) => navigate(`/tmdbapp/nav/person/${key}`)}
        />
