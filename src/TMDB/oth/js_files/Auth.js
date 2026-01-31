@@ -53,7 +53,7 @@ export async function createSession(request_token) {
 
 
 export async function setFav(type, id, fav, userId, SESSION_ID) {
-
+ 
   const options = {
     method: 'POST',
     headers: {
@@ -91,11 +91,12 @@ export async function setWatch(type, id, watch, userId, SESSION_ID) {
 
   const res = await fetch(`https://api.themoviedb.org/3/account/${userId}/watchlist?session_id=${SESSION_ID}`, options);
   const data = await res.json();
-
+  
   return data;
 }
 
 export async function getFav_Watch(user_id, type,listType, SESSION_ID) {
+  
  const mediaType = type === "movie" ? "movies" : "tv";
 
   const options = {
@@ -108,7 +109,6 @@ export async function getFav_Watch(user_id, type,listType, SESSION_ID) {
 
   const res = await fetch(`https://api.themoviedb.org/3/account/${user_id}/${listType}/${mediaType}?api_key=${TMDB_Key}&session_id=${SESSION_ID}`, options)
   const data = await res.json();
-  
   return data;
 }
 
