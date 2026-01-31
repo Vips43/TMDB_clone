@@ -60,7 +60,7 @@ function MovieDetails() {
    <Box>
     {/* FIX: Add Array.isArray check here */}
     {Array.isArray(directorInfo?.name) &&
-     directorInfo.name.map((n) => (
+     directorInfo?.name?.map((n) => (
       <Box key={n.id}>
        {" "}
        {/* Wrap items in a Box or Fragment with key */}
@@ -107,8 +107,8 @@ function MovieDetails() {
       sx={{
        position: "relative",
        width: "100%",
-       backgroundImage: movieDetail.backdrop_path
-        ? `url(${originalImgUrl}${movieDetail.backdrop_path})`
+       backgroundImage: movieDetail?.backdrop_path
+        ? `url(${originalImgUrl}${movieDetail?.backdrop_path})`
         : "none",
        backgroundPosition: "center top",
        backgroundSize: "cover",
@@ -332,7 +332,7 @@ function MovieDetails() {
         <Typography variant="body2">{movieDetail.original_title}</Typography>
        </Box>
 
-       {movieDetail.belongs_to_collection && (
+       {movieDetail?.belongs_to_collection && (
         <Box
          sx={{
           mt: 1,

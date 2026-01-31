@@ -67,7 +67,7 @@ function Footer() {
         borderRadius: "7px",
        }}
       >
-       Hi <br /> {user?.username}!{" "}
+       Hi <br /> {user?.username}!
       </Typography>
      </Box>
      <Box
