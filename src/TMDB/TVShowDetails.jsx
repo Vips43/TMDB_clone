@@ -55,7 +55,13 @@ function TVShowDetails() {
   if (!movieDetail.created_by || movieDetail.created_by.length === 0)
    return null;
 
-  if (tvLoading) return <Loader />;
+  if (tvLoading) {
+   return (
+    <div className="grid place-items-center w-full h-[calc(100vh-10rem)]">
+     <Loader />;
+    </div>
+   );
+  }
 
   return (
    <Box sx={{ mt: 3 }}>
@@ -230,7 +236,7 @@ function TVShowDetails() {
            showDetails={true}
           />
          </Box>
-         <ActionButtons type={"tv"} id={id}/>
+         <ActionButtons type={"tv"} id={id} />
         </Box>
 
         {/* --- DESKTOP ONLY: Tagline, Overview, Creators --- */}
