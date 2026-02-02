@@ -2,6 +2,7 @@ import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Section = ({ title, items }) => (
  <Box sx={{ color: "white", fontSize: "0.9rem", minWidth: 160 }}>
@@ -30,15 +31,16 @@ const Section = ({ title, items }) => (
 );
 
 function Footer() {
+ const navigate = useNavigate();
  const [user, setUser] = useState([]);
  useEffect(() => {
   const u = JSON.parse(localStorage.getItem("TMDB_user"));
 
   if (!u) return;
-  
+
   setUser(u);
  }, []);
- 
+
  return (
   <>
    <Box
@@ -65,9 +67,11 @@ function Footer() {
         fontWeight: "800",
         textTransform: "capitalize",
         borderRadius: "7px",
+        whiteSpace:"nowrap",
        }}
+       onClick={()=> navigate(`/user`)}
       >
-       Hi <br /> {user?.username}!
+       Hi <br /> {user.name + " !" || user.username + "!" || ""}
       </Typography>
      </Box>
      <Box

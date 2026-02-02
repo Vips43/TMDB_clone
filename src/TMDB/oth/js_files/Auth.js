@@ -53,7 +53,7 @@ export async function createSession(request_token) {
 
 
 export async function setFav(type, id, fav, userId, SESSION_ID) {
- 
+
   const options = {
     method: 'POST',
     headers: {
@@ -70,7 +70,8 @@ export async function setFav(type, id, fav, userId, SESSION_ID) {
 
   const res = await fetch(`https://api.themoviedb.org/3/account/${userId}/favorite?session_id=${SESSION_ID}`, options);
   const data = await res.json();
-  
+
+  console.log(data)
   return data;
 }
 export async function setWatch(type, id, watch, userId, SESSION_ID) {
@@ -91,26 +92,40 @@ export async function setWatch(type, id, watch, userId, SESSION_ID) {
 
   const res = await fetch(`https://api.themoviedb.org/3/account/${userId}/watchlist?session_id=${SESSION_ID}`, options);
   const data = await res.json();
-  
+
   return data;
 }
 
-export async function getFav_Watch(user_id, type,listType, SESSION_ID) {
+export async function getFav_Watch(user_id, type, listType, SESSION_ID) {
+  const mediaType = type === "movie" ? "movies" : "tv";
   
- const mediaType = type === "movie" ? "movies" : "tv";
-
+  const cleanListType = listType.toLowerCase(); // important
+  
+  const url = `https://api.themoviedb.org/3/account/${user_id}/${cleanListType}/${mediaType}?session_id=${SESSION_ID}`;
+  
+  console.log("API URL:", url);
   const options = {
-    method: 'GET',
+    method: "GET",
     headers: {
-      accept: 'application/json',
-      Authorization: 'Bearer ' + TMDB_BEARER
-    }
+      accept: "application/json",
+      Authorization: "Bearer " + TMDB_BEARER,
+    },
   };
-
-  const res = await fetch(`https://api.themoviedb.org/3/account/${user_id}/${listType}/${mediaType}?api_key=${TMDB_Key}&session_id=${SESSION_ID}`, options)
+  
+  const res = await fetch(url, options);
+  
+  if (!res.ok) {
+    throw new Error(`TMDB error: ${res.status}`);
+  }
+  
   const data = await res.json();
+  
+  console.log("Response:", data);
+
   return data;
 }
+
+// getFav_Watch(22466989, "movie", "favorite", 'f13b59cf65134ac8a5ad46c9ee220b173db99a26')
 
 export async function getAccount(sessionId) {
 
@@ -122,11 +137,12 @@ export async function getAccount(sessionId) {
   })
   const data = await res.json();
   localStorage.setItem("TMDB_user", JSON.stringify(data));
+  return data;
 }
 
 export async function getAccountStates(type, id, session_id) {
   const res = await fetch(
-    `https://api.themoviedb.org/3/${type}/${id}/account_states?session_id=${session_id}`,
+    `https://api.themoviedb.org/3/${type}/${id}/account_states?session_id=${session_id}&api_key=${TMDB_Key}`,
     {
       headers: {
         Authorization: "Bearer " + TMDB_BEARER,
@@ -137,3 +153,18 @@ export async function getAccountStates(type, id, session_id) {
   const data = await res.json();
   return data
 }
+
+export async function getAccountDetails(user_id, session_id) {
+  const res = await fetch(
+    `https://api.themoviedb.org/3/account/${user_id}?session_id=${session_id}&api_key=${TMDB_Key}`,
+    {
+      headers: {
+        Authorization: "Bearer " + TMDB_BEARER,
+        accept: "application/json",
+      },
+    }
+  );
+  const data = await res.json();
+  return data
+}
+// getAccountDetails(22466989, 'bb20922d977e09a05896e13a6c52ebc01ce16912')

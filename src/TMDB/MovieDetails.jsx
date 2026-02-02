@@ -71,11 +71,12 @@ function MovieDetails() {
         sx={{
          userSelect: "none",
          cursor: "pointer",
+         transition:"all .3s cubic-bezier(1, 0.04, 0.2, 1)",
          "&:hover": {
           textDecoration: "underline",
           opacity: 0.6,
-          fontWeight: "800",
-         },
+        },
+        whiteSpace:"nowrap",
         }}
         onClick={() => navigate(`/tmdbapp/person/${n.id}/${n.name}`)}
        >

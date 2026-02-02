@@ -1,6 +1,6 @@
 import { Box, Button, Typography } from "@mui/material";
-import Cast from "../show/Cast";
 import { Link, useParams } from "react-router";
+import Cast from "../show/Cast";
 import Reviews from "../show/Reviews";
 import Images from "../oth/Images";
 import Videos from "../show/Videos";

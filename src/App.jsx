@@ -2,6 +2,7 @@ import { lazy, Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
 import Loader from "../Loader";
 import ScrollToTop from "./TMDB/ScrollToTop";
+import UserInfo from "./TMDB/user/UserInfo";
 
 const Layout = lazy(() => import("./Layout"));
 const TMDB = lazy(() => import("./TMDB/TMDB"));
@@ -29,6 +30,9 @@ function App() {
      {/* AUTH / SEARCH */}
      <Route path="auth-success" element={<AuthSuccess />} />
      <Route path="search/:q" element={<SearchPage />} />
+
+      {/* user details  */}
+     <Route path="user" element={<UserInfo />} />
 
      {/* DETAILS */}
      <Route path="tmdbapp/movie/:id" element={<MovieDetails />} />

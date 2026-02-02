@@ -6,18 +6,17 @@ import CardActionArea from "@mui/material/CardActionArea";
 import Box from "@mui/material/Box";
 import { useNavigate } from "react-router";
 import img from "/casts.png";
-import useApiStore from "../oth/js_files/store";
+import Loader from "../../../Loader";
 
 function Cast({ cast, url, cardWidth = 120 }) {
  const navigate = useNavigate();
 
- const isLoading = useApiStore((state) => state.isLoading);
  const slicedCast = cast?.cast?.slice(0, 10);
- if (isLoading) {
+ if (!cast) {
   return (
-   <Typography sx={{ opacity: 0.6, p: 2 }} className="animate-bounce">
-    Loading cast…
-   </Typography>
+   <div className="w-full h-full">
+    <Loader />
+   </div>
   );
  }
 
@@ -47,11 +46,12 @@ function Cast({ cast, url, cardWidth = 120 }) {
      >
       <CardMedia
        component="img"
+       loading="lazy"
        height="140"
        image={c?.profile_path ? `${url}${c.profile_path}` : img}
        //  image={`${url}${c.profile_path}` || img}
        alt={c.name || c.character}
-       sx={{ border: c.profile_path ? "" : "1px solid lightgrey" }}
+       sx={{ border: c.profile_path ? "" : "1px solid lightgrey", }}
       />
 
       <CardContent sx={{ p: 0.5 }}>
