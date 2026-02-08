@@ -88,7 +88,7 @@ function TMDB() {
    >
     <Suspense fallback={<Loader />}>
      <Card movie={trending} load={loadingTrending}>
-      <Box sx={{ display: "flex", gap: 2, mb: 2 }}>
+      <Box sx={{ display: "flex", gap: 2, mb: 2, }}>
        <Typography variant="h5" fontWeight={600}>
         Trending
        </Typography>

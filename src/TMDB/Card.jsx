@@ -32,6 +32,7 @@ function Card(props) {
       padding: 8,
       gap: 16,
       flexWrap: active ? "wrap" : "nowrap",
+      scrollSnapType: "x mandatory",
      }}
      className="no-scrollbar"
     >
@@ -50,12 +51,13 @@ function Card(props) {
         whileHover={{ opacity: 0.85 }}
         style={{
          flexShrink: 0,
-         minWidth:"185px",
-         maxWidth: "190px",
+         minWidth: "150px",
+         maxWidth: "155px",
          flexGrow: 0,
          cursor: "pointer",
          borderRadius: 8,
          boxShadow: "2px 2px 5px grey",
+         scrollSnapAlign: "start",
         }}
         onClick={() => navigate(`/tmdbapp/${type}/${d.id}`)}
        >
@@ -67,8 +69,9 @@ function Card(props) {
           src={`${imgUrl}${d.poster_path}`}
           alt={title}
           sx={{
-           width: "100%",
+        //    width: "100%",
            aspectRatio: "2 / 3",
+           maxHeight:"225px",
            borderRadius: 1,
           }}
          />
