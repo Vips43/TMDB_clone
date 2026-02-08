@@ -1,12 +1,20 @@
 import { Box, Typography } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaPlay } from "react-icons/fa";
 
-function TMDB_trailers({ trailers, children }) {
+function TMDB_trailers({ trailers, children, setBg }) {
  const [activeKey, setActiveKey] = useState(null);
 
  if (!trailers || trailers.length === 0) return null;
 
+ useEffect(() => {
+  if (trailers?.length) {
+    setBg(`https://img.youtube.com/vi/${trailers[0].key}/hqdefault.jpg`);
+  }
+}, [trailers]);
+
+
+ console.log(trailers)
  return (
   <Box sx={{ my: 4 }}>
    {children}
@@ -49,6 +57,8 @@ function TMDB_trailers({ trailers, children }) {
          },
         }}
         onClick={() => setActiveKey(isActive ? null : v.key)}
+        onMouseEnter={()=>setBg(`https://img.youtube.com/vi/${v.key}/hqdefault.jpg`)}
+        
        >
         {isActive ? (
          <iframe

@@ -27,7 +27,15 @@ function TMDB() {
  const [pMovie, setPMovie] = useState("now_playing");
  const [rType, setRType] = useState("movie");
  const [tType, setTType] = useState("day");
+ const [bg, setBg] = useState("");
 
+ const bgStyle = {
+  backgroundImage: bg ? `url("${bg}")` : "none",
+  backgroundColor: bg ? undefined : "#415b70",
+  backgroundRepeat: "no-repeat",
+  backgroundSize: "cover",
+  backgroundPosition: "center",
+ };
  const isTvToggle = pType === "tv";
 
  const mediaTypes = [
@@ -88,7 +96,7 @@ function TMDB() {
    >
     <Suspense fallback={<Loader />}>
      <Card movie={trending} load={loadingTrending}>
-      <Box sx={{ display: "flex", gap: 2, mb: 2, }}>
+      <Box sx={{ display: "flex", gap: 2, mb: 2 }}>
        <Typography variant="h5" fontWeight={600}>
         Trending
        </Typography>
@@ -99,22 +107,24 @@ function TMDB() {
    </Box>
 
    {/* trailers  */}
-   {trailers && (
-    <Box sx={{ p: 3, bgcolor: "#415b70" }}>
-     <Suspense fallback={<Loader />}>
-      <TMDB_trailers trailers={trailers}>
-       <Box sx={{ display: "flex", gap: 2 }}>
-        <Typography
-         variant="h5"
-         fontWeight={700}
-         mb={2}
-         sx={{ color: "white" }}
-        >
-         Latest Trailers
-        </Typography>
-       </Box>
-      </TMDB_trailers>
-     </Suspense>
+   {trailers?.length > 0 && (
+    <Box style={bgStyle}>
+     <Box sx={{ p: 3, bgcolor: "rgba(3, 36, 64, 0.7)",transition:"all .5s easeInOut" }}>
+      <Suspense fallback={<Loader />}>
+       <TMDB_trailers trailers={trailers} setBg={setBg}>
+        <Box sx={{ display: "flex", gap: 2 }}>
+         <Typography
+          variant="h5"
+          fontWeight={700}
+          mb={2}
+          sx={{ color: "white" }}
+         >
+          Latest Trailers
+         </Typography>
+        </Box>
+       </TMDB_trailers>
+      </Suspense>
+     </Box>
     </Box>
    )}
 
