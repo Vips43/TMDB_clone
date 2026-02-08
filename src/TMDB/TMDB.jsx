@@ -73,7 +73,7 @@ function TMDB() {
  }, [tType, trending]);
 
  return (
-  <Box sx={{ maxWidth: "1400px", mx: "auto", }}>
+  <Box sx={{ maxWidth: "1400px", mx: "auto" }}>
    {/* TRENDING */}
    <Box
     sx={{

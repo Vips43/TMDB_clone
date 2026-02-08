@@ -99,7 +99,7 @@ export async function setWatch(type, id, watch, userId, SESSION_ID) {
 export async function getFav_Watch(user_id, type, listType, SESSION_ID) {
   const mediaType = type === "movie" ? "movies" : "tv";
   
-  const cleanListType = listType.toLowerCase(); // important
+  const cleanListType = listType.toLowerCase();
   
   const url = `https://api.themoviedb.org/3/account/${user_id}/${cleanListType}/${mediaType}?session_id=${SESSION_ID}`;
   

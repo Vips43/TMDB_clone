@@ -1,19 +1,25 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
+import CreateListModal from "./CreateListModal";
 
 function Lists() {
- const [list, setList] = useState(false);
+ const [open, setOpen] = useState(false);
+
  return (
   <>
    <div
-    className={`flex gap-2 items-center text-neutral-500 select-none cursor-pointer text-sm ${list ? "*:text-blue-500 border-blue-500" : "text-neutral-500"}`}
-    onClick={() => setList(!list)}
+    className={`flex gap-2 items-center select-none cursor-pointer text-sm transition-all hover:text-blue-500 text-neutral-500`}
+    onClick={() => {
+     setOpen(true);
+    }}
    >
-    <div className={`border-2 rounded-full text-neutral-500 p-1`}>
+    <div className="border-2 rounded-full p-1">
      <FormatListBulletedIcon fontSize="small" />
     </div>
-    <span >Lists</span>
+    <span>Lists</span>
    </div>
+
+   <CreateListModal open={open} onClose={() => setOpen(false)} />
   </>
  );
 }

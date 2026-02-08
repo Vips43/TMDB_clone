@@ -68,6 +68,7 @@ function Footer() {
         textTransform: "capitalize",
         borderRadius: "7px",
         whiteSpace:"nowrap",
+        cursor:"pointer",
        }}
        onClick={()=> navigate(`/user`)}
       >

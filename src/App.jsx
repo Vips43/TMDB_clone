@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import Loader from "../Loader";
 import ScrollToTop from "./TMDB/ScrollToTop";
 import UserInfo from "./TMDB/user/UserInfo";
+import ShowList from "./TMDB/user/ShowList";
 
 const Layout = lazy(() => import("./Layout"));
 const TMDB = lazy(() => import("./TMDB/TMDB"));
@@ -33,6 +34,7 @@ function App() {
 
       {/* user details  */}
      <Route path="user" element={<UserInfo />} />
+     <Route path="/list/:list_id/:list_name" element={<ShowList />} />
 
      {/* DETAILS */}
      <Route path="tmdbapp/movie/:id" element={<MovieDetails />} />

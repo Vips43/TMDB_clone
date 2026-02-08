@@ -78,7 +78,7 @@ function MovieDetails() {
         },
         whiteSpace:"nowrap",
         }}
-        onClick={() => navigate(`/tmdbapp/person/${n.id}/${n.name}`)}
+        onClick={() => navigate(`/person/${n.id}/${n.name}`)}
        >
         {n.name}
        </Typography>
@@ -98,7 +98,7 @@ function MovieDetails() {
        cursor: "pointer",
        "&:hover": { textDecoration: "underline", opacity: 0.6 },
       }}
-      onClick={() => navigate(`/tmdbapp/person/${t.id}/${t.name}`)}
+      onClick={() => navigate(`/person/${t.id}/${t.name}`)}
      >
       {t?.name}
      </Typography>

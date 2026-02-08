@@ -3,8 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Typography from "@mui/material/Typography";
 import { Pagination, Stack } from "@mui/material";
 import { motion, AnimatePresence } from "framer-motion";
-import { lazy, Suspense } from "react";
-import Loader from "../../Loader";
+import { lazy } from "react";
 const Vote = lazy(() => import("./oth/Vote"));
 
 function Card(props) {
@@ -51,6 +50,7 @@ function Card(props) {
         whileHover={{ opacity: 0.85 }}
         style={{
          flexShrink: 0,
+         minWidth:"185px",
          maxWidth: "190px",
          flexGrow: 0,
          cursor: "pointer",
@@ -74,9 +74,7 @@ function Card(props) {
          />
 
          <Box sx={{ position: "absolute", bottom: -16, left: 8 }}>
-          <Suspense fallback={<Loader />}>
-           <Vote vote={Math.floor(d.vote_average * 10)} />
-          </Suspense>
+          <Vote vote={Math.floor(d.vote_average * 10)} />
          </Box>
         </Box>
 
