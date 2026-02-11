@@ -70,7 +70,7 @@ function Footer() {
         whiteSpace:"nowrap",
         cursor:"pointer",
        }}
-       onClick={()=> navigate(`/user`)}
+       onClick={()=> {user.success=== "true" ? navigate(`/user`) : alert("it seems you are not logged. please log in")}}
       >
        Hi <br /> {user.success === "true" ? user?.name + " !" || user?.username + "!" : "User"}
       </Typography>
