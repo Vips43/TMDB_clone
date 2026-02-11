@@ -72,7 +72,7 @@ function Footer() {
        }}
        onClick={()=> navigate(`/user`)}
       >
-       Hi <br /> {user.name + " !" || user.username + "!" || ""}
+       Hi <br /> {user.success === "true" ? user?.name + " !" || user?.username + "!" : "User"}
       </Typography>
      </Box>
      <Box
