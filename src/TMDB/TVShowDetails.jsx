@@ -25,7 +25,7 @@ function TVShowDetails() {
   const controller = new AbortController();
   const { signal } = controller;
 
-  setMovieDetail(id, "tv", { signal });
+  useApiStore.getState().setMovieDetail(id, "tv", { signal });
 
   const getData = async () => {
    try {
@@ -51,23 +51,18 @@ function TVShowDetails() {
   return <Loader text={"show loading"} />;
  }
 
+ if(tvLoading){
+  return (
+   <div className="grid place-items-center w-full h-[calc(100vh-10rem)]">
+    <Loader text={"movie details"} />
+   </div>
+  );
+ }
  const CreatorInfo = () => {
   if (!movieDetail.created_by || movieDetail.created_by.length === 0)
    return null;
 
-  // if (tvLoading) {
-  //  return (
-  //   <div className="grid place-items-center w-full h-[calc(100vh-10rem)]">
-  //    <Loader />;
-  //   </div>
-  //  );
-  // }
 
-  window.addEventListener("onload", () => {
-   <div className="grid place-items-center w-full h-[calc(100vh-10rem)]">
-    <Loader />;
-   </div>;
-  });
 
   return (
    <Box sx={{ mt: 3 }}>

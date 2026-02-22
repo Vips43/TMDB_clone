@@ -103,7 +103,6 @@ export async function getFav_Watch(user_id, type, listType, SESSION_ID) {
   
   const url = `https://api.themoviedb.org/3/account/${user_id}/${cleanListType}/${mediaType}?session_id=${SESSION_ID}`;
   
-  console.log("API URL:", url);
   const options = {
     method: "GET",
     headers: {
@@ -119,9 +118,6 @@ export async function getFav_Watch(user_id, type, listType, SESSION_ID) {
   }
   
   const data = await res.json();
-  
-  console.log("Response:", data);
-
   return data;
 }
 

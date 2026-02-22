@@ -24,7 +24,7 @@ const PEOPLE_MENU = [{ label: "Popular People", key: "popular" }];
 
 /* ================= NAVBAR ================= */
 
-function NavBar() {
+function NavBar({setUser, user}) {
 
  const navigate = useNavigate();
 
@@ -75,7 +75,7 @@ function NavBar() {
        />
       </Box>
 
-      <LoginBtn/>
+      <LoginBtn setUser={setUser} user={user} />
 
       
      </Toolbar>

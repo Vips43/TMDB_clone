@@ -6,9 +6,8 @@ import {
  getAccount,
 } from "../../oth/js_files/Auth";
 
-function LoginBtn() {
+function LoginBtn({ setUser, user }) {
  const [anchorEl, setAnchorEl] = useState(null);
- const [user, setUser] = useState(null);
 
  const open = Boolean(anchorEl);
 

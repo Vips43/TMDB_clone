@@ -30,17 +30,8 @@ const Section = ({ title, items }) => (
  </Box>
 );
 
-function Footer() {
+function Footer({ user }) {
  const navigate = useNavigate();
- const [user, setUser] = useState([]);
- useEffect(() => {
-  const u = JSON.parse(localStorage.getItem("TMDB_user"));
-
-  if (!u) return;
-
-  setUser(u);
- }, []);
-
  return (
   <>
    <Box
@@ -67,12 +58,16 @@ function Footer() {
         fontWeight: "800",
         textTransform: "capitalize",
         borderRadius: "7px",
-        whiteSpace:"nowrap",
-        cursor:"pointer",
+        whiteSpace: "nowrap",
+        cursor: "pointer",
        }}
-       onClick={()=> {user.success=== "true" ? navigate(`/user`) : alert("it seems you are not logged. please log in")}}
+       onClick={() => {
+        user
+         ? navigate(`/user`)
+         : alert("it seems you are not logged. please log in");
+       }}
       >
-       Hi <br /> {user.success === "true" ? user?.name + " !" || user?.username + "!" : "User"}
+       Hi <br /> {user ? user?.name + " !" || user?.username + "!" : "User"}
       </Typography>
      </Box>
      <Box

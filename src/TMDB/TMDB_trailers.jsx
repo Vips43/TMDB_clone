@@ -13,8 +13,6 @@ function TMDB_trailers({ trailers, children, setBg }) {
   }
 }, [trailers]);
 
-
- console.log(trailers)
  return (
   <Box sx={{ my: 4 }}>
    {children}

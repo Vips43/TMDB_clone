@@ -46,7 +46,6 @@ function ActionButtons({ type, id }) {
           fav: favIds.includes(mediaId),
           watch: watchIds.includes(mediaId),
         });
-        console.log(status,favIds,mediaId)
       } catch (e) {
         console.error("Hydration failed", e);
       }
