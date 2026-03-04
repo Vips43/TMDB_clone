@@ -1,5 +1,3 @@
-import { capitalize } from "@mui/material";
-
 const TMDB_Key = import.meta.env.VITE_TMDB_KEY;
 const TMDB_BEARER = import.meta.env.VITE_TMDB_BEARER;
 

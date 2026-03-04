@@ -3,7 +3,7 @@ import useApiStore from "../oth/js_files/store";
 import { useParams } from "react-router";
 import { Box, Container } from "@mui/material";
 import { getPersonFull } from "../oth/js_files/api";
-import Loader from "../../../Loader";
+import Loader from "../oth/Loader";
 
 const LeftPer = lazy(() => import("./LeftPer"));
 const RightPer = lazy(() => import("./RightPer"));

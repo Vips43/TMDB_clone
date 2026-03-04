@@ -7,3 +7,6 @@
     display: none; /* Chrome, Safari, and Opera */
   }
 }
+html{
+  will-change: auto;
+}

@@ -6,7 +6,7 @@ import CardActionArea from "@mui/material/CardActionArea";
 import Box from "@mui/material/Box";
 import { useNavigate } from "react-router";
 import img from "/casts.png";
-import Loader from "../../../Loader";
+import Loader from "../oth/Loader";
 
 function Cast({ cast, url, cardWidth = 120 }) {
  const navigate = useNavigate();

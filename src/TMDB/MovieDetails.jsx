@@ -8,7 +8,7 @@ import Vote from "./oth/Vote";
 import { duration } from "./oth/js_files/api";
 import MovieFullDetail from "./movie/MovieFullDetail";
 import ActionButtons from "./oth/ActionButtons";
-import Loader from "../../Loader";
+import Loader from "./oth/Loader";
 
 function MovieDetails() {
  const navigate = useNavigate();

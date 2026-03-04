@@ -6,8 +6,8 @@ import useApiStore from "./oth/js_files/store";
 import PersonCard from "./PersonCard";
 import MenuIcon from "@mui/icons-material/Menu";
 import LeftNav from "./navbar_component/LeftNav";
-import Loader from "../../Loader";
 import useNavStore from "./navbar_component/compo/NavStore";
+import Loader from "./oth/Loader";
 
 function HeroMenus() {
  const { type, keyVal } = useParams();

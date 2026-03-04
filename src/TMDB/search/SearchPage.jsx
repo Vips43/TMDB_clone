@@ -9,7 +9,6 @@ import SearchKeyword from "./compo/SearchKeyword";
 import SearchNetwork from "./compo/SearchNetwork";
 import SearchPeople from "./compo/SearchPeople";
 import SearchList from "./compo/SearchList";
-import Loader from "../../../Loader";
 
 function SearchPage() {
  const navigate = useNavigate();

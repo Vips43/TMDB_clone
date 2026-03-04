@@ -7,7 +7,7 @@ import { fetchGlobal } from "./oth/js_files/api";
 import Vote from "./oth/Vote";
 import ActionButtons from "./oth/ActionButtons";
 import ShowExtraDetails from "./show/ShowExtraDetails";
-import Loader from "../../Loader";
+import Loader from "./oth/Loader";
 
 function TVShowDetails() {
  const imgUrl = "https://image.tmdb.org/t/p/w500";

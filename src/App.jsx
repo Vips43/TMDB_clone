@@ -1,9 +1,9 @@
 import { lazy, Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
-import Loader from "../Loader";
 import ScrollToTop from "./TMDB/ScrollToTop";
 import UserInfo from "./TMDB/user/UserInfo";
 import ShowList from "./TMDB/user/ShowList";
+import Loader from "./TMDB/oth/Loader";
 
 const Layout = lazy(() => import("./Layout"));
 const TMDB = lazy(() => import("./TMDB/TMDB"));
