@@ -25,10 +25,8 @@ function PersonDetails() {
    try {
     setLoading(true);
 
-    // 1. Fetch global person details
     await fetchGlobalAPI(type, id);
 
-    // 2. Fetch full combined credits
     const fullData = await getPersonFull(id, { signal });
     setInfo(fullData);
    } catch (err) {
@@ -45,7 +43,6 @@ function PersonDetails() {
   return () => controller.abort();
  }, [id, type]);
 
- // 🔥 BLOCK UI UNTIL DATA READY
  if (loading) return <Loader />;
 
  return (
@@ -83,4 +80,4 @@ function PersonDetails() {
  );
 }
 
-export default PersonDetails;
+export default React.memo(PersonDetails);

@@ -1,10 +1,9 @@
 import { lazy, Suspense, useEffect, useState } from "react";
-import { shallow } from "zustand/shallow";
 import { Box, Typography } from "@mui/material";
 import useApiStore from "./oth/js_files/store";
 import Toggler from "./oth/Toggler";
 import Loader from "./oth/Loader";
-import NewToggler from "./oth/NewToggler";
+
 const Card = lazy(() => import("./Card"));
 const TMDB_trailers = lazy(() => import("./TMDB_trailers"));
 

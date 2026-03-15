@@ -114,7 +114,7 @@ function MovieDetails() {
   <>
    {movieDetail && (
     <Box
-     sx={{ backgroundColor: "#0f0f0f", color: "white", minHeight: "100vh" }}
+     sx={{ backgroundColor: "#0f0f0f", color: "white", }}
     >
      {/* --- HERO SECTION --- */}
      <Box

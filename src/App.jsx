@@ -22,21 +22,12 @@ function App() {
   <Suspense fallback={<Loader />}>
     <ScrollToTop />
    <Routes>
-    {/* LAYOUT WRAPPER */}
     <Route element={<Layout />}>
-     {/* ROOT / HOME */}
-
      <Route index element={<TMDB />} />
-
-     {/* AUTH / SEARCH */}
      <Route path="auth-success" element={<AuthSuccess />} />
      <Route path="search/:q" element={<SearchPage />} />
-
-      {/* user details  */}
      <Route path="user" element={<UserInfo />} />
      <Route path="/list/:list_id/:list_name" element={<ShowList />} />
-
-     {/* DETAILS */}
      <Route path="tmdbapp/movie/:id" element={<MovieDetails />} />
      <Route path="tmdbapp/tv/:id" element={<TVShowDetails />} />
      <Route path="tmdbapp/:type/:id/cast" element={<FullCasts />} />

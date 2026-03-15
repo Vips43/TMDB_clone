@@ -181,7 +181,6 @@ function TVShowDetails() {
          </Typography>
         </Typography>
 
-        {/* Facts Row */}
         <Box
          sx={{
           display: "flex",
@@ -212,7 +211,6 @@ function TVShowDetails() {
          <span>{movieDetail.type}</span>
         </Box>
 
-        {/* Score */}
         <Box
          sx={{
           display: "flex",
@@ -240,7 +238,6 @@ function TVShowDetails() {
          <ActionButtons type={"tv"} id={id} />
         </Box>
 
-        {/* --- DESKTOP ONLY: Tagline, Overview, Creators --- */}
         <Box sx={{ display: { xs: "none", md: "block" } }}>
          <Typography
           sx={{
@@ -273,7 +270,6 @@ function TVShowDetails() {
      </Box>
     </Box>
 
-    {/* --- MOBILE ONLY: Tagline, Overview, Creators (Below Hero) --- */}
     <Box
      sx={{
       display: { xs: "block", md: "none" },

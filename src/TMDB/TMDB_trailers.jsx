@@ -149,4 +149,4 @@ function TMDB_trailers({ trailers, children, setBg }) {
  );
 }
 
-export default TMDB_trailers;
+export default React.memo(TMDB_trailers);

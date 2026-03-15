@@ -8,11 +8,11 @@ import { useNavigate } from "react-router";
 import img from "/casts.png";
 import Loader from "../oth/Loader";
 
-function Cast({ cast, url, cardWidth = 120 }) {
+function Cast({ cast, url, cardWidth = 120, isLoading }) {
  const navigate = useNavigate();
 
  const slicedCast = cast?.cast?.slice(0, 10);
- if (!cast) {
+ if (isLoading) {
   return (
    <div className="w-full h-full">
     <Loader />
@@ -49,7 +49,6 @@ function Cast({ cast, url, cardWidth = 120 }) {
        loading="lazy"
        height="140"
        image={c?.profile_path ? `${url}${c.profile_path}` : img}
-       //  image={`${url}${c.profile_path}` || img}
        alt={c.name || c.character}
        sx={{ border: c.profile_path ? "" : "1px solid lightgrey", }}
       />

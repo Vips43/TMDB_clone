@@ -4,7 +4,7 @@ import { useParams } from "react-router";
 import { fetchImages } from "./js_files/api";
 
 function Images({ type = "movie", imgUrl }) {
- const { id } = useParams(); // unused for now
+ const { id } = useParams();
 
  const [active, setActive] = useState("backdrops");
  const [visibleCount, setVisibleCount] = useState(5);
@@ -16,11 +16,11 @@ function Images({ type = "movie", imgUrl }) {
   logos: [],
  });
 
-const data = (images[active] || []).slice(0, visibleCount);
+ const data = (images[active] || []).slice(0, visibleCount);
 
-const handleShowMore=()=>{
-    setVisibleCount((prev)=> prev+10)
-}
+ const handleShowMore = () => {
+  setVisibleCount((prev) => prev + 10)
+ }
 
  const tabs = [
   { label: "Backdrops", key: "backdrops" },
@@ -44,11 +44,11 @@ const handleShowMore=()=>{
   getData();
  }, [id, type]);
 
- if(loading) return <h4 className="text-2xl font-bold text-center mt-20 animate-pulse">Loading...</h4>
+ if (loading) return <h4 className="text-2xl font-bold text-center mt-20 animate-pulse">Loading...</h4>
 
  return (
   <>
-   <Box sx={{ height:"225px", mb:2, }}>
+   <Box sx={{ height: "225px", mb: 2, }}>
     {/* TABS */}
     <Box sx={{ display: "flex", gap: 1, mb: 2 }}>
      <Typography fontWeight="600" sx={{ fontSize: "1.25rem" }}>
@@ -57,7 +57,7 @@ const handleShowMore=()=>{
      {tabs.map((tab) => (
       <Typography
        key={tab.key}
-       onClick={() => {setActive(tab.key); setVisibleCount(5)}}
+       onClick={() => { setActive(tab.key); setVisibleCount(5) }}
        sx={{
         textTransform: "none",
         fontSize: ".75rem",
@@ -78,48 +78,49 @@ const handleShowMore=()=>{
     {/* GRID */}
     <Box
      sx={{
-      overflow: "auto",
+      overflowX: "auto",
+      scrollSnapType: "x mandatory",
       height: "fit-content",
       background: "grey",
       borderRadius: 2,
+      display: "flex", 
+      gap: 1,
      }}
      className="no-scrollbar"
     >
+     {data.map((img, i) => (
+      <Box
+       key={i}
+       component="img"
+       src={`${imgUrl}${img.file_path}`}
+       alt=""
+       sx={{
+        flexShrink: 0,
+        maxHeight: "200px",
+        objectFit: "contain",
+        background: "white",
+        cursor: "pointer",
+        transition: "transform .2s ease",
+        scrollSnapAlign: "start",
+       }}
+      />
+     ))}
+
      <Box
+      onClick={handleShowMore}
       sx={{
-       display: "flex",
-       gap: 1,
+       whiteSpace: "nowrap",
+       display: "grid",
+       placeItems: "center",
+       px: 2,
+       cursor: "pointer",
+       scrollSnapAlign: "start",
       }}
      >
-      {data.map((img, i) => (
-       <Box
-        key={i}
-        component="img"
-        src={`${imgUrl}${img.file_path}`}
-        alt=""
-        sx={{
-         flexShrink: 0,
-         maxHeight:"200px",
-         objectFit:"contain",
-         background: "white",
-         cursor: "pointer",
-         transition: "transform .2s ease",
-        }}
-       />
-      ))}
-      <Box
-       onClick={handleShowMore}
-       sx={{
-        whiteSpace: "nowrap",
-        display: "grid",
-        placeItems: "center",
-        px: 2,
-       }}
-      >
-       Show More →{" "}
-      </Box>
+      Show More →
      </Box>
     </Box>
+      {/* grid close */}
    </Box>
 
   </>

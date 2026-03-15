@@ -49,7 +49,6 @@ const useNavStore = create((set) => ({
         const res = await fetch(url);
         const data = await res.json();
 
-        console.log(url, data)
         set({ discover: data });
     },
 
@@ -66,7 +65,7 @@ const useNavStore = create((set) => ({
             const url = `https://api.themoviedb.org/3/discover/${type}?api_key=${TMDB_Key}&${query}`;
             const res = await fetch(url);
             const data = await res.json();
-            console.log(data)
+
             set({ searches: data.results, searchTotalPages: data.total_pages, })
         }
 

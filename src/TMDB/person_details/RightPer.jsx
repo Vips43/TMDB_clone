@@ -1,15 +1,13 @@
 import { Box, Fade, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import useApiStore from "../oth/js_files/store";
-import { getFindById, getPersonFull } from "../oth/js_files/api";
+import { getFindById } from "../oth/js_files/api";
 import { useNavigate, useParams } from "react-router";
 import RightOth from "./RightOth";
 
 function RightPer({ infos }) {
- const imgUrl = `https://image.tmdb.org/t/p/w342`;
  const imgUrlsm = `https://image.tmdb.org/t/p/w185`;
 
- const { id } = useParams();
  const navigate = useNavigate();
 
  const globalData = useApiStore((s) => s.globalData);

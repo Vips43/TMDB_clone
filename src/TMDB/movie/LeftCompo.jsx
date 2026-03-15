@@ -6,7 +6,7 @@ import Images from "../oth/Images";
 import Videos from "../show/Videos";
 import Similar from "../oth/Similar";
 
-function LeftCompo({ cast, type, imgUrl }) {
+function LeftCompo({ cast, type, imgUrl, isLoading }) {
  const { id } = useParams();
  
  return (
@@ -16,8 +16,11 @@ function LeftCompo({ cast, type, imgUrl }) {
     <Typography variant="h5" fontWeight={600} mb={1}>
      Series Cast
     </Typography>
+    
+    {/* series cast  */}
+    <Cast cast={cast} url={imgUrl} isLoading={isLoading} />
+    {/* series cast  */}
 
-    <Cast cast={cast} url={imgUrl} />
     <Button
      component={Link}
      to={`/tmdbapp/${type}/${id}/cast`}
