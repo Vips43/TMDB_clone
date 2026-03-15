@@ -47,7 +47,7 @@ function PersonDetails() {
 
  return (
   <Container
-   maxWidth="xl"
+   maxWidth="2xl"
    sx={{
     py: 2,
     bgcolor: "white",

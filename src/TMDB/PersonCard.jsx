@@ -32,20 +32,17 @@ function PersonCard(props) {
 
       <Box
         sx={{
-          display: "flex",
-          justifyContent: "center",
-          flexWrap: "wrap",
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fill,minmax(120px, 1fr))",
           p: 1,
           gap: 2,
         }}
-        className="no-scrollbar"
+        className="no-scrollbar border"
       >
         {person?.map((per, i) => (
           <Box
             key={i}
             sx={{
-              flexShrink: 0,
-              flexBasis: "140px",
               boxShadow: "2px 2px 5px grey",
               cursor: "pointer",
               borderRadius: 3,
@@ -84,7 +81,7 @@ function PersonCard(props) {
               </Typography>
               <Typography fontSize="0.75rem" color="text.secondary">
                 {per.known_for?.map((kno) => kno.name || "").join(" ")}
-                {per.known_for?.map((kno) => kno.title || "").join(", ")}
+                <span className="line-clamp-4">{per.known_for?.map((kno) => kno.title || "").join(", ")}</span>
               </Typography>
             </Box>
           </Box>

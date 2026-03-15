@@ -3,13 +3,11 @@ import { useNavigate } from "react-router-dom";
 import Typography from "@mui/material/Typography";
 import { Pagination, Stack } from "@mui/material";
 import { motion, AnimatePresence } from "framer-motion";
-import { lazy, memo } from "react"; // Added memo
+import { lazy, memo } from "react";
 
 const Vote = lazy(() => import("./oth/Vote"));
 
-// 1. Wrap in memo so it doesn't re-render unless props change
-const Card = memo(function Card(props) {
-  const { movie, children, totalPages, page, active = false, setPage } = props;
+const Card = memo(function Card({ movie, children, totalPages, page, active = false, setPage }) {
   const imgUrl = "https://image.tmdb.org/t/p/w185";
   const navigate = useNavigate();
 
@@ -22,16 +20,18 @@ const Card = memo(function Card(props) {
       <AnimatePresence>
         <motion.div
           key="movie-container"
+          className="no-scrollbar"
           style={{
-            display: "flex",
-            justifyContent: "space-evenly",
+            flex: 1,
+            width: "100%",
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fill,minmax(115px,1fr))",
             overflowX: "auto",
             padding: 8,
             gap: 16,
             flexWrap: active ? "wrap" : "nowrap",
             scrollSnapType: "x mandatory",
           }}
-          className="no-scrollbar"
         >
           {movie.map((d) => {
             const type = d.media_type ?? (d?.first_air_date ? "tv" : "movie");
@@ -40,18 +40,14 @@ const Card = memo(function Card(props) {
 
             return (
               <motion.div
-                key={d.id} 
-                layout 
-                initial={{ opacity: 0, scale: 0.9 }} 
+                key={d.id}
+                layout
+                initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.9, transition: { duration: 0.2 } }}
                 transition={{ duration: 0.3 }}
-                whileHover={{ opacity: 0.85, y: -5 }} 
+                whileHover={{ opacity: 0.85, y: -5 }}
                 style={{
-                  flexShrink: 0,
-                  minWidth: "150px",
-                  maxWidth: "155px",
-                  flexGrow: 0,
                   cursor: "pointer",
                   borderRadius: 8,
                   boxShadow: "2px 2px 5px grey",
@@ -59,7 +55,6 @@ const Card = memo(function Card(props) {
                 }}
                 onClick={() => navigate(`/tmdbapp/${type}/${d.id}`)}
               >
-                {/* IMAGE */}
                 <Box sx={{ position: "relative" }}>
                   <Box
                     component="img"
@@ -70,7 +65,7 @@ const Card = memo(function Card(props) {
                       aspectRatio: "2 / 3",
                       maxHeight: "225px",
                       borderRadius: 1,
-                      width: "100%", 
+                      width: "100%",
                     }}
                   />
 
@@ -79,7 +74,6 @@ const Card = memo(function Card(props) {
                   </Box>
                 </Box>
 
-                {/* TEXT */}
                 <Box sx={{ mt: 3, width: 130, px: 1 }}>
                   <Typography fontSize="0.9rem" fontWeight={600} noWrap>
                     {title}
@@ -94,7 +88,6 @@ const Card = memo(function Card(props) {
         </motion.div>
       </AnimatePresence>
 
-      {/* PAGINATION */}
       {active && (
         <Stack spacing={4} alignItems="center" sx={{ my: 4 }}>
           <Pagination
