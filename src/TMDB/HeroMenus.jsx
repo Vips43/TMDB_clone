@@ -48,7 +48,9 @@ function HeroMenus() {
 
   const isSearchMode = searches.length > 0;
   const dataToShow = isSearchMode ? searches : globalData?.results || [];
-  const totalPagesToShow = isSearchMode ? searchTotalPages : globalData?.total_pages || 1;
+  const totalPagesToShow = isSearchMode
+    ? searchTotalPages
+    : globalData?.total_pages || 1;
 
   return (
     <Container maxWidth="xl" disableGutters>
@@ -92,6 +94,7 @@ function HeroMenus() {
                 setPage={setPage}
                 totalPages={totalPagesToShow}
                 active={true}
+                card={true}
               />
             </Box>
           </Box>

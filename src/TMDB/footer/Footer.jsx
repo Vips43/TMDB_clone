@@ -4,7 +4,14 @@ import Typography from "@mui/material/Typography";
 import { useNavigate } from "react-router-dom";
 
 const Section = ({ title, items }) => (
-  <Box sx={{ color: "white", fontSize: "0.9rem", minWidth: 130,textAlign:"center" }}>
+  <Box
+    sx={{
+      color: "white",
+      fontSize: "0.9rem",
+      minWidth: 130,
+      textAlign: "center",
+    }}
+  >
     <Typography
       sx={{
         fontWeight: 800,
@@ -25,7 +32,7 @@ const Section = ({ title, items }) => (
           opacity: 0.85,
           cursor: "pointer",
           mb: 0.5,
-          "&:hover": { opacity: 1 }
+          "&:hover": { opacity: 1 },
         }}
       >
         {item}
@@ -44,7 +51,7 @@ function Footer({ user }) {
       component="footer"
       sx={{
         bgcolor: "#031f36",
-        p: { xs: 3, md: 4 },
+        p: { xs: 1, md: 3 },
       }}
     >
       <Container
@@ -56,7 +63,13 @@ function Footer({ user }) {
           gap: { xs: 4, md: 3 },
         }}
       >
-        <Box sx={{ display: "flex", flexDirection: { sm: "row", md: "column" }, gap: { xs: 5, md: 2 } }}>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: { sm: "row", md: "column" },
+            gap: { xs: 5, md: 2 },
+          }}
+        >
           <Box
             component="img"
             src="/TMDB_logo2.svg"
@@ -91,8 +104,8 @@ function Footer({ user }) {
             flex: 1,
             display: "grid",
             width: "100%",
-            gridTemplateColumns: "repeat(auto-fit, minmax(140px, 1fr))",
-            ml: { md: "auto" }
+            gridTemplateColumns: "repeat(auto-fit, minmax(135px, 1fr))",
+            ml: { md: "auto" },
           }}
         >
           <Section
@@ -113,7 +126,12 @@ function Footer({ user }) {
 
           <Section
             title="Community"
-            items={["Guidelines", "Discussions", "Leaderboard", "Support Forums"]}
+            items={[
+              "Guidelines",
+              "Discussions",
+              "Leaderboard",
+              "Support Forums",
+            ]}
           />
 
           <Section

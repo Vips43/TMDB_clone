@@ -7,7 +7,15 @@ import { lazy, memo } from "react";
 
 const Vote = lazy(() => import("./oth/Vote"));
 
-const Card = memo(function Card({ movie, children, totalPages, page, active = false, setPage }) {
+const Card = memo(function Card({
+  movie,
+  children,
+  totalPages,
+  page,
+  active = false,
+  setPage,
+  card = false,
+}) {
   const imgUrl = "https://image.tmdb.org/t/p/w185";
   const navigate = useNavigate();
 
@@ -24,7 +32,7 @@ const Card = memo(function Card({ movie, children, totalPages, page, active = fa
           style={{
             flex: 1,
             width: "100%",
-            display: "grid",
+            display: card ? "grid" : "flex",
             gridTemplateColumns: "repeat(auto-fill,minmax(115px,1fr))",
             overflowX: "auto",
             padding: 8,
