@@ -17,7 +17,7 @@ const PersonDetails = lazy(() => import("./TMDB/person_details/PersonDetails"));
 
 function App() {
  document.title = `The Movie Database`;
-
+  alert('Please change DNS to "cloudflare" if content not showing. in \n setting → "search dns" → use secure DNS → choose cloudflare ')
  return (
   <Suspense fallback={<Loader />}>
     <ScrollToTop />
