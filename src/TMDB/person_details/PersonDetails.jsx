@@ -3,7 +3,7 @@ import useApiStore from "../oth/js_files/store";
 import { useParams } from "react-router";
 import { Box, Container } from "@mui/material";
 import { getPersonFull } from "../oth/js_files/api";
-import Loader from "../../../Loader";
+import Loader from "../oth/Loader";
 
 const LeftPer = lazy(() => import("./LeftPer"));
 const RightPer = lazy(() => import("./RightPer"));
@@ -25,10 +25,8 @@ function PersonDetails() {
    try {
     setLoading(true);
 
-    // 1. Fetch global person details
     await fetchGlobalAPI(type, id);
 
-    // 2. Fetch full combined credits
     const fullData = await getPersonFull(id, { signal });
     setInfo(fullData);
    } catch (err) {
@@ -45,12 +43,11 @@ function PersonDetails() {
   return () => controller.abort();
  }, [id, type]);
 
- // 🔥 BLOCK UI UNTIL DATA READY
  if (loading) return <Loader />;
 
  return (
   <Container
-   maxWidth="xl"
+   maxWidth="2xl"
    sx={{
     py: 2,
     bgcolor: "white",
@@ -83,4 +80,4 @@ function PersonDetails() {
  );
 }
 
-export default PersonDetails;
+export default React.memo(PersonDetails);

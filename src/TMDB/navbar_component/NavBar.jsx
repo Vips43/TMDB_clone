@@ -1,5 +1,4 @@
-import * as React from "react";
-import { AppBar, Box, Button, CssBaseline, Toolbar,} from "@mui/material";
+import { AppBar, Box, CssBaseline, Toolbar,} from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import NavDropdown from "./NavDropdown";
 import Searchbtn from "../search/compo/Searchbtn";
@@ -24,7 +23,7 @@ const PEOPLE_MENU = [{ label: "Popular People", key: "popular" }];
 
 /* ================= NAVBAR ================= */
 
-function NavBar() {
+function NavBar({setUser, user}) {
 
  const navigate = useNavigate();
 
@@ -53,9 +52,10 @@ function NavBar() {
        sx={{
         display: {  xs: "flex" },
         alignItems: "center",
+        justifyContent:"space-around",
         gap: 1,
-       }}
-      >
+    }}
+    >
        <NavDropdown
         label="Movies"
         items={MOVIE_MENU}
@@ -68,12 +68,13 @@ function NavBar() {
        />
        <NavDropdown
         label="People"
+
         items={PEOPLE_MENU}
         onSelect={(key) => navigate(`/tmdbapp/nav/person/${key}`)}
        />
       </Box>
 
-      <LoginBtn/>
+      <LoginBtn setUser={setUser} user={user} />
 
       
      </Toolbar>

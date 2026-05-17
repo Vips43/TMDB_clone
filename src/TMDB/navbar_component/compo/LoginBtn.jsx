@@ -6,9 +6,8 @@ import {
  getAccount,
 } from "../../oth/js_files/Auth";
 
-function LoginBtn() {
+function LoginBtn({ setUser, user }) {
  const [anchorEl, setAnchorEl] = useState(null);
- const [user, setUser] = useState(null);
 
  const open = Boolean(anchorEl);
 
@@ -24,7 +23,7 @@ function LoginBtn() {
   }
  }, []);
 
- const logged = !!user?.id;
+ const logged = Boolean(user && user.id);
 
  const handleLoginClick = async (e) => {
   if (logged) {
@@ -35,8 +34,7 @@ function LoginBtn() {
   const token = await getRequestToken();
   const redirectUrl = `${window.location.origin}`;
 
-window.location.href = 
-  `https://www.themoviedb.org/authenticate/${token}?redirect_to=${encodeURIComponent(redirectUrl)}`;
+  window.location.href = `https://www.themoviedb.org/authenticate/${token}?redirect_to=${encodeURIComponent(redirectUrl)}`;
  };
 
  // After redirect: create session + get user
@@ -49,6 +47,7 @@ window.location.href =
      const account = await getAccount(sessionData.session_id);
      setUser(account);
     }
+    window.history.replaceState({}, document.title, window.location.pathname);
    }
   };
 
@@ -78,7 +77,7 @@ window.location.href =
     }}
     onClick={handleLoginClick} // ❌ no debounce
    >
-    {logged ? user.username : "Login"}
+    {user ? user.username || "No User" : "Login"}
    </Button>
 
    <Menu

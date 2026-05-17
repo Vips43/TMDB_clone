@@ -7,7 +7,7 @@ import { fetchGlobal } from "./oth/js_files/api";
 import Vote from "./oth/Vote";
 import ActionButtons from "./oth/ActionButtons";
 import ShowExtraDetails from "./show/ShowExtraDetails";
-import Loader from "../../Loader";
+import Loader from "./oth/Loader";
 
 function TVShowDetails() {
  const imgUrl = "https://image.tmdb.org/t/p/w500";
@@ -25,7 +25,7 @@ function TVShowDetails() {
   const controller = new AbortController();
   const { signal } = controller;
 
-  setMovieDetail(id, "tv", { signal });
+  useApiStore.getState().setMovieDetail(id, "tv", { signal });
 
   const getData = async () => {
    try {
@@ -51,11 +51,18 @@ function TVShowDetails() {
   return <Loader text={"show loading"} />;
  }
 
+ if(tvLoading){
+  return (
+   <div className="grid place-items-center w-full h-[calc(100vh-10rem)]">
+    <Loader text={"movie details"} />
+   </div>
+  );
+ }
  const CreatorInfo = () => {
   if (!movieDetail.created_by || movieDetail.created_by.length === 0)
    return null;
 
-  if (tvLoading) return <Loader />;
+
 
   return (
    <Box sx={{ mt: 3 }}>
@@ -174,7 +181,6 @@ function TVShowDetails() {
          </Typography>
         </Typography>
 
-        {/* Facts Row */}
         <Box
          sx={{
           display: "flex",
@@ -205,7 +211,6 @@ function TVShowDetails() {
          <span>{movieDetail.type}</span>
         </Box>
 
-        {/* Score */}
         <Box
          sx={{
           display: "flex",
@@ -230,10 +235,9 @@ function TVShowDetails() {
            showDetails={true}
           />
          </Box>
-         <ActionButtons type={"tv"} id={id}/>
+         <ActionButtons type={"tv"} id={id} />
         </Box>
 
-        {/* --- DESKTOP ONLY: Tagline, Overview, Creators --- */}
         <Box sx={{ display: { xs: "none", md: "block" } }}>
          <Typography
           sx={{
@@ -266,7 +270,6 @@ function TVShowDetails() {
      </Box>
     </Box>
 
-    {/* --- MOBILE ONLY: Tagline, Overview, Creators (Below Hero) --- */}
     <Box
      sx={{
       display: { xs: "block", md: "none" },

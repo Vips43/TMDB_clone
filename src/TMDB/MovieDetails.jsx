@@ -1,5 +1,5 @@
 import Box from "@mui/material/Box";
-import "./TMDB.css"
+import "./TMDB.css";
 import Typography from "@mui/material/Typography";
 import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router";
@@ -8,7 +8,7 @@ import Vote from "./oth/Vote";
 import { duration } from "./oth/js_files/api";
 import MovieFullDetail from "./movie/MovieFullDetail";
 import ActionButtons from "./oth/ActionButtons";
-import Loader from "../../Loader";
+import Loader from "./oth/Loader";
 
 function MovieDetails() {
  const navigate = useNavigate();
@@ -21,7 +21,7 @@ function MovieDetails() {
  const movieDetail = useApiStore((state) => state.movieDetail);
  const movieLoading = useApiStore((state) => state.movieLoading);
  const directorInfo = useApiStore((state) => state.directorInfo);
- 
+
  useEffect(() => {
   if (!id) return;
   const controller = new AbortController();
@@ -41,7 +41,9 @@ function MovieDetails() {
  }
  if (movieLoading)
   return (
-   <Loader text={"movie details"}/>
+   <div className="grid place-items-center w-full h-[calc(100vh-10rem)]">
+    <Loader text={"movie details"} />
+   </div>
   );
 
  // Helper component for Crew/Director to avoid code duplication
@@ -66,8 +68,17 @@ function MovieDetails() {
        {/* Wrap items in a Box or Fragment with key */}
        <Typography
         fontWeight="bold"
-        sx={{ userSelect: "none", cursor: "pointer", "&:hover":{textDecoration:"underline", opacity:0.6, fontWeight:"800"} }}
-        onClick={() => navigate(`/tmdbapp/person/${n.id}/${n.name}`)}
+        sx={{
+         userSelect: "none",
+         cursor: "pointer",
+         transition:"all .3s cubic-bezier(1, 0.04, 0.2, 1)",
+         "&:hover": {
+          textDecoration: "underline",
+          opacity: 0.6,
+        },
+        whiteSpace:"nowrap",
+        }}
+        onClick={() => navigate(`/person/${n.id}/${n.name}`)}
        >
         {n.name}
        </Typography>
@@ -83,8 +94,11 @@ function MovieDetails() {
     <Box key={i}>
      <Typography
       fontWeight="bold"
-      sx={{cursor:"pointer", "&:hover":{textDecoration:"underline", opacity:0.6}}}
-      onClick={() => navigate(`/tmdbapp/person/${t.id}/${t.name}`)}
+      sx={{
+       cursor: "pointer",
+       "&:hover": { textDecoration: "underline", opacity: 0.6 },
+      }}
+      onClick={() => navigate(`/person/${t.id}/${t.name}`)}
      >
       {t?.name}
      </Typography>
@@ -100,7 +114,7 @@ function MovieDetails() {
   <>
    {movieDetail && (
     <Box
-     sx={{ backgroundColor: "#0f0f0f", color: "white", minHeight: "100vh" }}
+     sx={{ backgroundColor: "#0f0f0f", color: "white", }}
     >
      {/* --- HERO SECTION --- */}
      <Box

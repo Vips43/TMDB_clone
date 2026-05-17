@@ -18,8 +18,8 @@ function SearchPage() {
  const searchtype = useApiStore((state) => state.searchtype);
 
  useEffect(() => {
-  if (!query) return; 
-    searchMovie(query, searchtype);
+  if (!query) return;
+  searchMovie(query, searchtype);
  }, [query, searchtype, searchMovie]);
 
 
@@ -43,7 +43,14 @@ function SearchPage() {
     }}
    >
     {/* LEFT SIDEBAR */}
-    <Box sx={{ width: {xs:180,sm:260}, flexShrink: 0, position: "sticky", top: 5 }}>
+    <Box
+     sx={{
+      width: { xs: 180, sm: 260 },
+      flexShrink: 0,
+      position: "sticky",
+      top: 5,
+     }}
+    >
      <SearchList />
     </Box>
 

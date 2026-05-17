@@ -1,7 +1,9 @@
 import { lazy, Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
-import Loader from "../Loader";
 import ScrollToTop from "./TMDB/ScrollToTop";
+import UserInfo from "./TMDB/user/UserInfo";
+import ShowList from "./TMDB/user/ShowList";
+import Loader from "./TMDB/oth/Loader";
 
 const Layout = lazy(() => import("./Layout"));
 const TMDB = lazy(() => import("./TMDB/TMDB"));
@@ -15,22 +17,17 @@ const PersonDetails = lazy(() => import("./TMDB/person_details/PersonDetails"));
 
 function App() {
  document.title = `The Movie Database`;
-
+  alert('Please change DNS to "cloudflare" if content not showing. in \n setting → "search dns" → use secure DNS → choose cloudflare ')
  return (
   <Suspense fallback={<Loader />}>
     <ScrollToTop />
    <Routes>
-    {/* LAYOUT WRAPPER */}
     <Route element={<Layout />}>
-     {/* ROOT / HOME */}
-
      <Route index element={<TMDB />} />
-
-     {/* AUTH / SEARCH */}
      <Route path="auth-success" element={<AuthSuccess />} />
      <Route path="search/:q" element={<SearchPage />} />
-
-     {/* DETAILS */}
+     <Route path="user" element={<UserInfo />} />
+     <Route path="/list/:list_id/:list_name" element={<ShowList />} />
      <Route path="tmdbapp/movie/:id" element={<MovieDetails />} />
      <Route path="tmdbapp/tv/:id" element={<TVShowDetails />} />
      <Route path="tmdbapp/:type/:id/cast" element={<FullCasts />} />

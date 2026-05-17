@@ -16,9 +16,6 @@ function SearchBtn() {
 
   const query = new URLSearchParams(filtered).toString();
 
-  console.log("Filtered:", filtered);
-  console.log("Query:", query);
-
   fetchSearches(type, query);
  };
 

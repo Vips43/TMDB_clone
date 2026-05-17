@@ -246,15 +246,11 @@ const useApiStore = create((set, get) => ({
 
   trailers: [],
   trLoading: false,
-
   fetchTrailers: async () => {
     const trending = get().trending;
-
     if (!trending || trending.length === 0) return;
-
     // Prevent double fetch
     if (get().trLoading) return;
-
     set({ trLoading: true });
 
     try {
@@ -272,7 +268,6 @@ const useApiStore = create((set, get) => ({
       const data = allvideos
         .map((a) => a?.results?.[0])
         .filter(Boolean);
-
       set({ trailers: data, trLoading: false });
     } catch (error) {
       console.error("Trailer fetch error:", error);

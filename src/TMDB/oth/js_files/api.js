@@ -48,7 +48,7 @@ export const fetchReviews = async (id, type) => {
 
 export const fetchCast = async (id, type, s = "credits") => {
     if (!id || !type || !s) return;
-    
+
     const res = await fetch(`https://api.themoviedb.org/3/${type}/${id}/${s}?api_key=${TMDB_Key}`);
     const data = await res.json();
 
@@ -137,15 +137,69 @@ export const getPersonFull = async (id) => {
 
 export const getchTrailers = async (params) => {
     const res = params.map(param => {
-        return param.key ==="topRated";
- 
+        return param.key === "topRated";
+
     })
     console.log(res)
 }
 
-export async function getIds(id){
+export async function getIds(id) {
     const res = await fetch(`https://api.themoviedb.org/3/person/${id}/external_ids?api_key=${TMDB_Key}
 `)
-const data = await res.json();
-return data
+    const data = await res.json();
+    return data
+}
+
+
+//create Lists 
+
+export async function createLists(name, desc, session_ID) {
+    const options = {
+        method: 'POST',
+        headers: {
+            accept: 'application/json',
+            'content-type': 'application/json',
+            Authorization: 'Bearer ' + TMDB_BEARER
+        },
+        body: JSON.stringify({
+            "name": name,
+            "description": desc,
+            "language": "en",
+        }),
+    };
+    const url = `https://api.themoviedb.org/3/list?session_id=${session_ID}`;
+    const res = await fetch(url, options)
+    const data = await res.json();
+    return data
+}
+
+export async function getList(user_id, session_ID) {
+    const options = {
+        method: 'GET',
+        headers: {
+            accept: 'application/json',
+            Authorization: 'Bearer ' + TMDB_BEARER
+        }
+    };
+    const url = `https://api.themoviedb.org/3/account/${user_id}/lists?page=1&session_id=${session_ID}`;
+
+    const res = await fetch(url, options)
+    const data = await res.json();
+    console.log(data)
+    return data;
+}
+
+export async function addListItems(list_id, media_type, media_id, session_ID) {
+    const options = {
+        method: 'GET',
+        headers: {
+            accept: 'application/json',
+            Authorization: 'Bearer ' + TMDB_BEARER
+        },
+        body: JSON.stringify({ "items": [{ "media_type": media_type, "media_id": media_id },] }),
+    };
+    const url = `https://api.themoviedb.org/3/list/${list_id}/add_item?session_id=${session_ID}`;
+    const res = await fetch(url, options)
+    const data = await res.json();
+    return data;
 }

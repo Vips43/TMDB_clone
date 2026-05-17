@@ -9,6 +9,7 @@ function ShowExtraDetails({ url, movieDetail }) {
  const { id } = useParams();
  const setCasts = useApiStore((state) => state.setCasts);
  const casts = useApiStore((state) => state.casts);
+ const isLoading = useApiStore((state) => state.isLoading);
  const type = "tv";
 
  useEffect(() => {
@@ -21,10 +22,10 @@ function ShowExtraDetails({ url, movieDetail }) {
     sx={{
         background:"white",
      px: 2,
-     display:"grid", gridTemplateColumns:"1fr 1fr", gap:1,
+     display:"grid", gridTemplateColumns:{sm:"1fr", md:"1fr 1fr"}, gap:1,
     }}
    >
-    <LeftCompo cast={casts} type={type} imgUrl={url} />
+    <LeftCompo cast={casts} type={type} imgUrl={url} isLoading={isLoading} />
     <RightCompo movie={movieDetail} type={type} />
    </Box>
    
