@@ -23,8 +23,8 @@ function App() {
   <Suspense fallback={<Loader />}>
     <ScrollToTop />
    <Routes>
-    <Route element={<Layout />}>
-      <Route element={<Analytics/>}
+    <Route element={<Layout />}/>
+      <Route element={<Analytics/>}/>
      <Route index element={<TMDB />} />
      <Route path="auth-success" element={<AuthSuccess />} />
      <Route path="search/:q" element={<SearchPage />} />
