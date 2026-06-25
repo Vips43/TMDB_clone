@@ -14,6 +14,7 @@ const AuthSuccess = lazy(() => import("./TMDB/AuthSuccess"));
 const FullCasts = lazy(() => import("./TMDB/show/FullCasts"));
 const HeroMenus = lazy(() => import("./TMDB/HeroMenus"));
 const PersonDetails = lazy(() => import("./TMDB/person_details/PersonDetails"));
+import { Analytics } from "@vercel/analytics/react"
 
 function App() {
  document.title = `The Movie Database`;
@@ -23,6 +24,7 @@ function App() {
     <ScrollToTop />
    <Routes>
     <Route element={<Layout />}>
+      <Route element={<Analytics/>}
      <Route index element={<TMDB />} />
      <Route path="auth-success" element={<AuthSuccess />} />
      <Route path="search/:q" element={<SearchPage />} />
